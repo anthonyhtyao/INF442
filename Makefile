@@ -14,6 +14,8 @@ test.o: test.cpp Proteine.hpp gensvg.hpp AcideAnime.hpp
 
 test: test.o Proteine.o AcideAnime.o gensvg.o
 	$(CC) -o $@ $^
+	./test
+	gnome-open example.svg
 
 clean:
 	rm -f test

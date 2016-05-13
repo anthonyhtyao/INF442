@@ -9,11 +9,9 @@ using namespace std;
 // Constant declarations specifying the dimensions of the image and
 // the rectangular bar.
 
-const unsigned IMG_WIDTH = 100;
-const unsigned IMG_HEIGHT = 100;
+const unsigned IMG_WIDTH = 70;
+const unsigned IMG_HEIGHT = 80;
 const unsigned IMG_MARGIN = 10;
-const unsigned BAR_WIDTH = IMG_WIDTH - 2 * IMG_MARGIN;
-const unsigned BAR_HEIGHT = IMG_HEIGHT - 2 * IMG_MARGIN;
 
 // Prolog for the SVG image
 
@@ -40,20 +38,9 @@ void line(int x1, int y1, int x2, int y2, ofstream& myfile) {
 
 void circle(int x, int y, char v, ofstream& myfile) {
     if (v == 'P')
-      myfile << "<circle cx=\"" << x*5 << "\" cy=\"" << y*5 << "\" r=\"4\" fill=\"black\" />" << endl;
+      myfile << "<circle cx=\"" << x << "\" cy=\"" << y << "\" r=\"1.5\" fill=\"black\" />" << endl;
     else
-      myfile << "<circle cx=\"" << x*5 << "\" cy=\"" << y*5 << "\" r=\"4\" fill=\"white\" />" << endl;
-}
-
-void bar(unsigned m, unsigned n) {
-  unsigned m_width = (unsigned) (((double) m) / ((double) m + n) * BAR_WIDTH);
-  unsigned n_width = BAR_WIDTH - m_width;
-  cout << "<rect x=\"" << IMG_MARGIN << "\" y=\"" << IMG_MARGIN << "\""
-       << " width=\"" << m_width << "\" height=\"" << BAR_HEIGHT << "\""
-       << " style=\"stroke: none; fill: red;\" />" << endl;
-  cout << "<rect x=\"" << IMG_MARGIN + m_width << "\" y=\"" << IMG_MARGIN << "\""
-       << " width=\"" << n_width << "\" height=\"" << BAR_HEIGHT << "\""
-       << " style=\"stroke: none; fill: green;\" />" << endl;
+      myfile << "<circle cx=\"" << x << "\" cy=\"" << y << "\" r=\"1.5\" fill=\"white\" />" << endl;
 }
 
 // Read input and generate SVG image
@@ -62,8 +49,12 @@ void showProtein(Proteine p) {
   ofstream myfile;
   myfile.open ("example.svg");
   header(myfile);
-  for (vector<AcideAnime>::iterator it = p.proteine.begin(); it != p.proteine.end(); it++) {
-    circle(it->x, it->y, it->valeur, myfile);
+  for (unsigned int i = 0; i < p.l; i++) {
+    vector<AcideAnime> lst = p.proteine;
+    circle(lst[i].x*5 + 50, -lst[i].y*5 + 10, lst[i].valeur, myfile);
+    if (i != p.l-1) {
+      line(lst[i].x*5 + 50, -lst[i].y*5 + 10, lst[i+1].x*5 + 50, -lst[i+1].y*5 + 10, myfile);
+    }
   }
   footer(myfile);
   myfile.close();
