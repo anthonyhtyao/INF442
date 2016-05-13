@@ -3,6 +3,7 @@
 #include <vector>
 #include "Proteine.hpp"
 #include "AcideAnime.hpp"
+#include "gensvg.hpp"
 
 //using namespace std
 
@@ -32,6 +33,8 @@ int main() {
    std::cout << std::endl;
    
    protein1.Ranger();
+
+   showProtein(protein1);
    
    for(std::vector<AcideAnime>::iterator it = protein1.proteine.begin();
          it != protein1.proteine.end(); it++){
