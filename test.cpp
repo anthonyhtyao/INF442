@@ -9,7 +9,7 @@
 
 int main() {
    
-   std::string s = "PPPHHPHPHPHHPHPHPHHP";
+   std::string s = "PPHPHHHHPPHPPHHHPHPPHHP";
    Proteine protein1 = Proteine(s);
    
    std::cout << "La longeur de la proteine est : " << protein1.l << std::endl;
