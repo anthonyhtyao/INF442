@@ -223,7 +223,8 @@ void Proteine::Ranger() {
    std::cout << std::endl;
    
    for(int r=0; r<nref; r++){
-      left.push_back(leftaux[nref-1 -r]);
+      int ind = leftaux[nref-1-r];
+      left.push_back(ind);
    }
    
 /*   for(int r=polaires.size()-1; r >= 0; r--) {
@@ -281,6 +282,13 @@ void Proteine::Ranger() {
    proteine[l-1].y = proteine[right[nref -1]].y - (l-1 - right[nref -1]);   
    
    RangerAutoRight(proteine[right[nref-1]], proteine[l-1]);
+   
+   for(int r=0; r<nref; r++){
+      int ind = leftaux[nref-1-r];
+      typePL.push_back(proteine[ind]);
+      ind = right[r];
+      typePR.push_back(proteine[ind]);
+   }
    
 }
    

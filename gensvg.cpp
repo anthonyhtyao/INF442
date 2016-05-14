@@ -34,6 +34,11 @@ void line(int x1, int y1, int x2, int y2, ofstream& myfile) {
   
 }
 
+// Generation a dotted line
+void lien(int x1, int y1, int x2, int y2, ofstream& myfile) {
+    myfile << "<line stroke-dasharray=\"1 1\" x1=\"" << x1 <<"\" y1=\"" << y1 <<"\" x2=\"" << x2 << "\" y2=\"" << y2 << "\" style=\"stroke:rgb(255,0,0);stroke-width:2\" />" << endl;
+  
+}
 // Generation a circle
 
 void circle(int x, int y, char v, ofstream& myfile) {
@@ -55,6 +60,10 @@ void showProtein(Proteine p) {
     if (i != p.l-1) {
       line(lst[i].x*5 + 50, -lst[i].y*5 + 10, lst[i+1].x*5 + 50, -lst[i+1].y*5 + 10, myfile);
     }
+  }
+  for (unsigned int i=0; i< p.typePL.size(); i++) {
+    cout << p.typePL[i].y << endl;
+    lien(p.typePL[i].x*5 + 50, -(p.typePL[i].y*5) + 10, p.typePR[i].x*5 + 50, -(p.typePR[i].y*5) + 10, myfile);
   }
   footer(myfile);
   myfile.close();

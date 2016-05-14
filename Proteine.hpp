@@ -33,6 +33,8 @@ class Proteine {
        
        //Vector of polar Amino Acids
        std::vector<AcideAnime> polaires;
+       std::vector<AcideAnime> typePL;
+       std::vector<AcideAnime> typePR;
        
        std::vector<std::vector<int> > v;
        std::vector<std::vector<int> > vInv;
