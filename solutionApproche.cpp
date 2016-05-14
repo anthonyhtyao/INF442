@@ -8,8 +8,15 @@
 //using namespace std
 
 int main() {
-   
-   std::string s = "PPHPHHHHPPHPPHHHPHPPHHP";
+
+//Example 3
+//   std::string s = "PPHPHHHHPPHPPHHHPHPPHHP";
+
+//Example 2
+   std::string s = "PPPHHPHPHPHHPHPHPHHP";
+
+//Example 1
+//   std::string s = "HPHHPHPHHHHPHHHHHPHHPPH";
    Proteine protein1 = Proteine(s);
    
    std::cout << "La longeur de la proteine est : " << protein1.l << std::endl;
