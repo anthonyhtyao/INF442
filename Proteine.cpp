@@ -283,6 +283,8 @@ void Proteine::Ranger() {
    
    RangerAutoRight(proteine[right[nref-1]], proteine[l-1]);
    
+   translation();
+
    for(int r=0; r<nref; r++){
       int ind = leftaux[nref-1-r];
       typePL.push_back(proteine[ind]);
@@ -291,7 +293,12 @@ void Proteine::Ranger() {
    }
    
 }
-   
-      
+
+void Proteine::translation() {
+   for (std::vector<AcideAnime>::iterator it = proteine.begin(); it != proteine.end(); it++) {
+      it->x += l;
+      it->y = it->y*(-1) + l;
+   }
+}
    
    

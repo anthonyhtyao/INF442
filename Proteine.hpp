@@ -23,7 +23,7 @@ class Proteine {
        
        int nRefK();
        void Ranger();
-    
+       void translation();    
        //Protein sequence
        std::string sequence;
        std::vector<AcideAnime> proteine;
