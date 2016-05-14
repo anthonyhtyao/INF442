@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "Proteine.hpp"
-#include "AcideAnime.hpp"
+#include "AcideAmine.hpp"
 
 //using namespace std;
 
@@ -12,7 +12,7 @@ Proteine::Proteine(std::string s) {
     l = s.size();
     
     for(unsigned int i=0; i<l; i++){
-       AcideAnime a = AcideAnime(i,s[i],0,i);
+       AcideAmine a = AcideAmine(i,s[i],0,i);
        proteine.push_back(a);
        if(s[i] == 'P') {
            polaires.push_back(a);
@@ -24,7 +24,7 @@ Proteine::Proteine(std::string s) {
 
 
 /*    for(std::string::iterator it = s.begin(); it!=s.end(); it++) {
-       AcideAnime a = AcideAnime()
+       AcideAmine a = AcideAmine()
     }
 */                
 }
@@ -69,7 +69,7 @@ void Proteine::calculVInv() {
 }
 
  
-void Proteine::RangerAutoRight(AcideAnime a, AcideAnime b) {
+void Proteine::RangerAutoRight(AcideAmine a, AcideAmine b) {
    
    int i = a.indice;
    int j = b.indice;
@@ -126,7 +126,7 @@ int Proteine::nRefK() {
    
 }
 
-void Proteine::RangerAutoLeft(AcideAnime a, AcideAnime b) {
+void Proteine::RangerAutoLeft(AcideAmine a, AcideAmine b) {
    
    int i = a.indice;
    int j = b.indice;
@@ -295,7 +295,7 @@ void Proteine::Ranger() {
 }
 
 void Proteine::translation() {
-   for (std::vector<AcideAnime>::iterator it = proteine.begin(); it != proteine.end(); it++) {
+   for (std::vector<AcideAmine>::iterator it = proteine.begin(); it != proteine.end(); it++) {
       it->x += l;
       it->y = it->y*(-1) + l;
    }

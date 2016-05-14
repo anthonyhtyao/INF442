@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "Proteine.hpp"
-#include "AcideAnime.hpp"
+#include "AcideAmine.hpp"
 #include <vector>
 
 using namespace std;

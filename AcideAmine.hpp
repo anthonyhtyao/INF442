@@ -3,12 +3,12 @@
 
 #include <iostream>
 
-class AcideAnime {
+class AcideAmine {
 
    public:
       
       //Constructor
-      AcideAnime(int indice, char valeur, int x, int y);
+      AcideAmine(int indice, char valeur, int x, int y);
       
       
       //Indice de l'acide anime

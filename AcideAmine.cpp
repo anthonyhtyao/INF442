@@ -1,7 +1,7 @@
 #include <iostream>
-#include "AcideAnime.hpp"
+#include "AcideAmine.hpp"
 
-AcideAnime::AcideAnime(int i, char c, int xx, int yy) {
+AcideAmine::AcideAmine(int i, char c, int xx, int yy) {
    
    indice = i;
    valeur = c;

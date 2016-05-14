@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Proteine.hpp"
-#include "AcideAnime.hpp"
+#include "AcideAmine.hpp"
 #include <vector>
 
 using namespace std;
@@ -58,7 +58,7 @@ void showProtein(Proteine p) {
     lien(p.typePL[i].x*coeff, p.typePL[i].y*coeff, p.typePR[i].x*coeff, p.typePR[i].y*coeff, myfile);
   }
   for (unsigned int i = 0; i < p.l; i++) {
-    vector<AcideAnime> lst = p.proteine;
+    vector<AcideAmine> lst = p.proteine;
     if (i != p.l-1) {
       line(lst[i].x*coeff, lst[i].y*coeff, lst[i+1].x*coeff, lst[i+1].y*coeff, myfile);
     }

@@ -1,23 +1,23 @@
 CC = g++ -Wall
 
-AcideAnime.o: AcideAnime.cpp AcideAnime.hpp
-	$(CC) -c AcideAnime.cpp
+AcideAmine.o: AcideAmine.cpp AcideAmine.hpp
+	$(CC) -c AcideAmine.cpp
 
-Proteine.o: Proteine.cpp Proteine.hpp AcideAnime.hpp
+Proteine.o: Proteine.cpp Proteine.hpp AcideAmine.hpp
 	$(CC) -c $<
 
-gensvg.o: gensvg.cpp gensvg.hpp Proteine.hpp AcideAnime.hpp
+gensvg.o: gensvg.cpp gensvg.hpp Proteine.hpp AcideAmine.hpp
 	$(CC) -c $<
 
-test.o: test.cpp Proteine.hpp gensvg.hpp AcideAnime.hpp
+solutionApproche.o: solutionApproche.cpp Proteine.hpp gensvg.hpp AcideAmine.hpp
 	$(CC) -c $<
 
-test: test.o Proteine.o AcideAnime.o gensvg.o
+solutionApproche: solutionApproche.o Proteine.o AcideAmine.o gensvg.o
 	$(CC) -o $@ $^
-	./test
+	./solutionApproche
 	gnome-open example.svg
 
 clean:
-	rm -f test
+	rm -f solutionApproche
 	rm -f *.o
 	rm -f *.svg
