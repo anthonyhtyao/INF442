@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "AcideAnime.hpp"
+#include "AcideAmine.hpp"
 
 //using namespace std;
 
@@ -18,21 +18,23 @@ class Proteine {
        void calculV();
        void calculVInv();
        
-       void RangerAutoRight(AcideAnime a, AcideAnime b);
-       void RangerAutoLeft(AcideAnime a, AcideAnime b);
+       void RangerAutoRight(AcideAmine a, AcideAmine b);
+       void RangerAutoLeft(AcideAmine a, AcideAmine b);
        
        int nRefK();
        void Ranger();
-    
+       void translation();    
        //Protein sequence
        std::string sequence;
-       std::vector<AcideAnime> proteine;
+       std::vector<AcideAmine> proteine;
        
        //Protein's length
        int l; 
        
        //Vector of polar Amino Acids
-       std::vector<AcideAnime> polaires;
+       std::vector<AcideAmine> polaires;
+       std::vector<AcideAmine> typePL;
+       std::vector<AcideAmine> typePR;
        
        std::vector<std::vector<int> > v;
        std::vector<std::vector<int> > vInv;

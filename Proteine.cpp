@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "Proteine.hpp"
-#include "AcideAnime.hpp"
+#include "AcideAmine.hpp"
 
 //using namespace std;
 
@@ -12,7 +12,7 @@ Proteine::Proteine(std::string s) {
     l = s.size();
     
     for(unsigned int i=0; i<l; i++){
-       AcideAnime a = AcideAnime(i,s[i],0,i);
+       AcideAmine a = AcideAmine(i,s[i],0,i);
        proteine.push_back(a);
        if(s[i] == 'P') {
            polaires.push_back(a);
@@ -24,7 +24,7 @@ Proteine::Proteine(std::string s) {
 
 
 /*    for(std::string::iterator it = s.begin(); it!=s.end(); it++) {
-       AcideAnime a = AcideAnime()
+       AcideAmine a = AcideAmine()
     }
 */                
 }
@@ -69,7 +69,7 @@ void Proteine::calculVInv() {
 }
 
  
-void Proteine::RangerAutoRight(AcideAnime a, AcideAnime b) {
+void Proteine::RangerAutoRight(AcideAmine a, AcideAmine b) {
    
    int i = a.indice;
    int j = b.indice;
@@ -126,7 +126,7 @@ int Proteine::nRefK() {
    
 }
 
-void Proteine::RangerAutoLeft(AcideAnime a, AcideAnime b) {
+void Proteine::RangerAutoLeft(AcideAmine a, AcideAmine b) {
    
    int i = a.indice;
    int j = b.indice;
@@ -162,12 +162,13 @@ void Proteine::Ranger() {
    bool isImpair = false;
    
 //   int k = nRefK();
-   int k = 9;
+   int k = 11;
    int i1 = v[k][0];
    int p1 = v[k][1];
    int i2 = vInv[k][0];
    int p2 = vInv[k][1];
-   
+  
+// Get nref value 
    int nref = std::min(p1,i2);
    if(std::min(i1,p2)>std::min(p1,i2)) {
       nref = std::min(i1,p2);
@@ -176,46 +177,54 @@ void Proteine::Ranger() {
    
    std::vector<int> left;
    std::vector<int> right;
-   
+   std::vector<int> leftaux;
+
+// Find P type Protein paired at left side  
    int compt = 0;
+   std::cout << "Left P type protein ";
+   for(int r=0; r<polaires.size(); r++) {
+         int w = polaires[r].indice;
+         if(w <= k) {
+            if(isImpair && w%2 != 0){
+               leftaux.push_back(w);
+               compt +=1;
+               std::cout << w << " ";
+            }
+            else if(!isImpair && w%2 ==0){
+               leftaux.push_back(w);
+               compt +=1;
+               std::cout << w << " ";
+            }
+         }
+         if(compt == nref) break;
+   }
+   std::cout << std::endl;
+      
+   compt = 0;
+
+// Find P type Protein paired at right side
+   std::cout << "Right P type protein ";
    for(int r=0; r<polaires.size(); r++) {
          int w = polaires[r].indice;
          if(w>k) {
             if(isImpair && w%2 == 0){
                right.push_back(w);
                compt +=1;
+               std::cout << w << " ";
             }
             if(!isImpair && w%2 !=0){
                right.push_back(w);
                compt +=1;
+               std::cout << w << " ";
             }
          }
          if(compt == nref) break;
    }
-      
-   compt = 0;
-   
-   std::vector<int> leftaux;
-   
-   for(int r=0; r<polaires.size(); r++) {
-         int w = polaires[r].indice;
-         if(w<=k) {
-            if(isImpair && w%2 != 0){
-               leftaux.push_back(w);
-               compt +=1;
-            }
-            if(!isImpair && w%2 ==0){
-               leftaux.push_back(w);
-               compt +=1;
-            }
-         }
-         if(compt == nref) break;
-   }
-   
-
+   std::cout << std::endl;
    
    for(int r=0; r<nref; r++){
-      left.push_back(leftaux[nref-1 -r]);
+      int ind = leftaux[nref-1-r];
+      left.push_back(ind);
    }
    
 /*   for(int r=polaires.size()-1; r >= 0; r--) {
@@ -254,10 +263,10 @@ void Proteine::Ranger() {
       
       tt = std::min(left[r-1] - left[r], right[r] - right[r-1]);
       proteine[left[r]].x = 0;
-      proteine[left[r]].y = proteine[left[0]].y - tt;
+      proteine[left[r]].y = proteine[left[r-1]].y - tt;
       
       proteine[right[r]].x = 1;
-      proteine[right[r]].y = proteine[right[0]].y - tt;
+      proteine[right[r]].y = proteine[right[r-1]].y - tt;
       
       RangerAutoLeft(proteine[left[r-1]], proteine[left[r]]);
       RangerAutoRight(proteine[right[r-1]],proteine[right[r]]);
@@ -274,8 +283,22 @@ void Proteine::Ranger() {
    
    RangerAutoRight(proteine[right[nref-1]], proteine[l-1]);
    
-}
+   translation();
+
+   for(int r=0; r<nref; r++){
+      int ind = leftaux[nref-1-r];
+      typePL.push_back(proteine[ind]);
+      ind = right[r];
+      typePR.push_back(proteine[ind]);
+   }
    
-      
+}
+
+void Proteine::translation() {
+   for (std::vector<AcideAmine>::iterator it = proteine.begin(); it != proteine.end(); it++) {
+      it->x += l;
+      it->y = it->y*(-1) + l;
+   }
+}
    
    
