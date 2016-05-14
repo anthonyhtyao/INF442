@@ -101,23 +101,43 @@ void Proteine::RangerAutoRight(AcideAmine a, AcideAmine b) {
 
 int Proteine::nRefK() {
    
-   int indMin = 0;
-   int indMax = 0;
-   int courantMax = 0;
+   int indMin1 = 0;
+   int indMax1 = 0;
+   
+   int indMin2 = 0;
+   int indMax2 = 0;
+   
+   int courantMax1 = 0;
+   int courantMax2 = 0;
    
    for(unsigned int k=0; k<l; k++){
       
       int min1 = std::min(v[k][0],vInv[k][1]);
       int min2 = std::min(v[k][1],vInv[k][0]);
-      int max = std::max(min1,min2);
       
-      if(max >= courantMax) {
-         indMax = k;
-         if(max > courantMax) {
-            indMin = k;
-            courantMax = max;
+      if(min1 >= courantMax1) {
+         indMax1 = k;
+         if(min1 > courantMax1) {
+            indMin1 = k;
+            courantMax1 = min1;
          }
       }
+      
+      if(min2 >= courantMax2) {
+         indMax2 = k;
+         if(min2 > courantMax2) {
+            indMin2 = k;
+            courantMax2 = min2;
+         }
+      }
+   }
+   
+   int indMin = indMin1;
+   int indMax = indMax1;
+   
+   if(courantMax2 > courantMax1) {
+      indMin = indMin2;
+      indMax = indMax2;
    }
    
 //   std::cout << indMin << " " << indMax << std::endl;
@@ -161,8 +181,9 @@ void Proteine::Ranger() {
    
    bool isImpair = false;
    
-//   int k = nRefK();
-   int k = 11;
+   int k = nRefK();
+   std::cout << "La valeur de k : " << k << std::endl;
+//   int k = 11;
    int i1 = v[k][0];
    int p1 = v[k][1];
    int i2 = vInv[k][0];
@@ -227,21 +248,6 @@ void Proteine::Ranger() {
       left.push_back(ind);
    }
    
-/*   for(int r=polaires.size()-1; r >= 0; r--) {
-         int w = polaires[r].indice;
-         if(w<=k) {
-            if(isImpair && w%2 != 0){
-               left.push_back(w);
-               compt +=1;
-            }
-            if(!isImpair && w%2 ==0){
-               left.push_back(w);
-               compt +=1;
-            }
-         }
-         if(compt == nref) break;
-  }
-*/
             
    proteine[k].x = 0;
    proteine[k].y = 0;

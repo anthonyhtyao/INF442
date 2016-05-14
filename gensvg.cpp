@@ -54,7 +54,7 @@ void showProtein(Proteine p) {
   myfile.open ("example.svg");
   header(myfile, IMG_WIDTH, IMG_HEIGHT);
   for (unsigned int i=0; i< p.typePL.size(); i++) {
-    cout << p.typePL[i].y << endl;
+//    cout << p.typePL[i].y << endl;
     lien(p.typePL[i].x*coeff, p.typePL[i].y*coeff, p.typePR[i].x*coeff, p.typePR[i].y*coeff, myfile);
   }
   for (unsigned int i = 0; i < p.l; i++) {
