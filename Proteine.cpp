@@ -183,7 +183,6 @@ void Proteine::Ranger() {
    
    int k = nRefK();
    std::cout << "La valeur de k : " << k << std::endl;
-//   int k = 11;
    int i1 = v[k][0];
    int p1 = v[k][1];
    int i2 = vInv[k][0];
