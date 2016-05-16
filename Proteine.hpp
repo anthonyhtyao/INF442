@@ -22,12 +22,15 @@ class Proteine {
        void RangerAutoLeft(AcideAmine* a, AcideAmine* b);
        
        int nRefK();
-       int calculeNeff();
        void Ranger();
        void translation();
 
        // Return true if no acide anime overlaps
        bool notOverlap(int i);
+       int calculeNeff();
+       void RangerRecursif(int i, Proteine p);
+       
+          
        //Protein sequence
        std::string sequence;
        std::vector<AcideAmine*> proteine;

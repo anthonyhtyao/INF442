@@ -346,3 +346,56 @@ bool Proteine::notOverlap(int i) {
    }
    return b;
 }
+
+void Proteine::RangerRecursif(int i, Proteine* p) {
+   if(i == l) {}
+   else {
+      int xPre = p.proteine[i-1]->x;
+      int yPre = p.proteine[i-1]->y;
+      
+      p.proteine[i]->x = xPre;
+      p.proteine[i]->y = yPre + 1;
+      
+      if(notOverlap(i)) {
+         RangerRecursif(i+1, p);
+         p->calculNeff();
+         if(p->neff > this.neff) {
+            this.proteine = p->proteine;
+            this.neff = p->neff;
+         }
+      }
+      
+      p.proteine[i]->x = xPre;
+      p.proteine[i]->y = yPre - 1;
+      
+      if(notOverlap(i)) {
+         RangerRecursif(i+1, p);
+         if(p.neff > this.neff) {
+            this.proteine = p.proteine;
+            this.neff = p.neff;
+         }
+      }
+      
+      p.proteine[i]->x = xPre - 1;
+      p.proteine[i]->y = yPre;
+      
+      if(notOverlap(i)) {
+         RangerRecursif(i+1, p);
+         if(p.neff > this.neff) {
+            this.proteine = p.proteine;
+            this.neff = p.neff;
+         }
+      }
+      
+      p.proteine[i]->x = xPre + 1;
+      p.proteine[i]->y = yPre;
+      
+      if(notOverlap(i)) {
+         RangerRecursif(i+1, p);
+         if(p.neff > this.neff) {
+            this.proteine = p.proteine;
+            this.neff = p.neff;
+         }
+      }
+   }
+}
