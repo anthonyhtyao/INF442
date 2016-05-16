@@ -337,4 +337,12 @@ int Proteine::calculeNeff() {
       }
    }
    return neff;
-}   
+}
+
+bool Proteine::notOverlap(int i) {
+   bool b = true;
+   for (int k=0; k < i-1; k++) {
+      b = b && (proteine[i]->x != proteine[k] -> x || proteine[i]->y != proteine[k] -> y);
+   }
+   return b;
+}

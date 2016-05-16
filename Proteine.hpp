@@ -24,7 +24,10 @@ class Proteine {
        int nRefK();
        int calculeNeff();
        void Ranger();
-       void translation();    
+       void translation();
+
+       // Return true if no acide anime overlaps
+       bool notOverlap(int i);
        //Protein sequence
        std::string sequence;
        std::vector<AcideAmine*> proteine;
