@@ -23,31 +23,30 @@ int main() {
    
    std::cout << "La sequence de la proteine est : ";
    
-   for(std::vector<AcideAmine>::iterator it = protein1.proteine.begin();
-         it != protein1.proteine.end(); it++){
-         std::cout << it->valeur;
+   for(int i = 0; i < protein1.l; i++){
+         std::cout << protein1.proteine[i]->valeur;
    }
                
    std::cout << std::endl;
-   
+
    std::cout << "Les acides animes polaires sont aux positions : ";
    
-   for(std::vector<AcideAmine>::iterator it = protein1.polaires.begin();
-         it != protein1.polaires.end(); it++){
-         std::cout << it->indice << " ";
+   for(int i = 0; i < protein1.l; i++){
+         std::cout << protein1.proteine[i]->indice << " ";
    }
    
    std::cout << std::endl;
    
    protein1.Ranger();
 
+   std::cout << "neff : " << protein1.neff << std::endl;
+   
    showProtein(protein1);
    
-   for(std::vector<AcideAmine>::iterator it = protein1.proteine.begin();
-         it != protein1.proteine.end(); it++){
-         std::cout << "Indice : " << it->indice << " ";
-         std::cout << it->valeur << " ";
-         std::cout << "Position : (" << it->x << "," << it->y << ") ";
+   for(int i = 0; i < protein1.l; i++){
+         std::cout << "Indice : " << protein1.proteine[i]->indice << " ";
+         std::cout << protein1.proteine[i]->valeur << " ";
+         std::cout << "Position : (" << protein1.proteine[i]->x << "," << protein1.proteine[i]->y << ") ";
          std::cout << std::endl;
    }
      

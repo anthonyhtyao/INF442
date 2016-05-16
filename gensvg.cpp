@@ -55,14 +55,14 @@ void showProtein(Proteine p) {
   header(myfile, IMG_WIDTH, IMG_HEIGHT);
   for (unsigned int i=0; i< p.typePL.size(); i++) {
 //    cout << p.typePL[i].y << endl;
-    lien(p.typePL[i].x*coeff, p.typePL[i].y*coeff, p.typePR[i].x*coeff, p.typePR[i].y*coeff, myfile);
+    lien(p.typePL[i]->x*coeff, p.typePL[i]->y*coeff, p.typePR[i]->x*coeff, p.typePR[i]->y*coeff, myfile);
   }
-  for (unsigned int i = 0; i < p.l; i++) {
-    vector<AcideAmine> lst = p.proteine;
+  for (int i = 0; i < p.l; i++) {
+    vector<AcideAmine*> lst = p.proteine;
     if (i != p.l-1) {
-      line(lst[i].x*coeff, lst[i].y*coeff, lst[i+1].x*coeff, lst[i+1].y*coeff, myfile);
+      line(lst[i]->x*coeff, lst[i]->y*coeff, lst[i+1]->x*coeff, lst[i+1]->y*coeff, myfile);
     }
-    circle(lst[i].x*coeff, lst[i].y*coeff, lst[i].valeur, myfile);
+    circle(lst[i]->x*coeff, lst[i]->y*coeff, lst[i]->valeur, myfile);
   }
   footer(myfile);
   myfile.close();
