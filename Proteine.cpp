@@ -352,8 +352,12 @@ bool Proteine::notOverlap(int i) {
 void Proteine::RangerRecursif(int i, Proteine p) {
    if(i == l) {}
    else {
+      int g,h;
       int xPre = p.proteine[i-1]->x;
       int yPre = p.proteine[i-1]->y;
+      
+      g = p.proteine[i]->x;
+      h = p.proteine[i]->y;
       
       p.proteine[i]->x = xPre;
       p.proteine[i]->y = yPre + 1;
@@ -361,7 +365,7 @@ void Proteine::RangerRecursif(int i, Proteine p) {
       if(p.notOverlap(i)) {
          RangerRecursif(i+1, p);
          
-         if(p.test()) {
+//         if(p.test()) {
             p.neff = p.calculeNeff();
             if(p.neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -369,8 +373,15 @@ void Proteine::RangerRecursif(int i, Proteine p) {
                }
             neff = p.neff;
             }
-         }
+//         }
       }
+      else{
+         p.proteine[i]->x = g;
+         p.proteine[i]->y = h;
+      }
+      
+      g = p.proteine[i]->x;
+      h = p.proteine[i]->y;
        
       p.proteine[i]->x = xPre;
       p.proteine[i]->y = yPre - 1;
@@ -379,7 +390,7 @@ void Proteine::RangerRecursif(int i, Proteine p) {
         
          RangerRecursif(i+1, p);
          
-         if(p.test()) {
+//         if(p.test()) {
             p.neff = p.calculeNeff();
             if(p.neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -387,8 +398,15 @@ void Proteine::RangerRecursif(int i, Proteine p) {
                }
             neff = p.neff;
             }
-         }
+//         }
       }
+      else{
+         p.proteine[i]->x = g;
+         p.proteine[i]->y = h;
+      }
+      
+      g = p.proteine[i]->x;
+      h = p.proteine[i]->y;
       
       p.proteine[i]->x = xPre - 1;
       p.proteine[i]->y = yPre;
@@ -397,7 +415,7 @@ void Proteine::RangerRecursif(int i, Proteine p) {
          
          RangerRecursif(i+1, p);
         
-         if(p.test()) {
+//         if(p.test()) {
             p.neff = p.calculeNeff(); 
             if(p.neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -405,8 +423,15 @@ void Proteine::RangerRecursif(int i, Proteine p) {
                }            
             neff = p.neff;
             }
-         }
+//         }
       }
+      else{
+         p.proteine[i]->x = g;
+         p.proteine[i]->y = h;
+      }
+      
+      g = p.proteine[i]->x;
+      h = p.proteine[i]->y;
       
       p.proteine[i]->x = xPre + 1;
       p.proteine[i]->y = yPre;
@@ -415,7 +440,7 @@ void Proteine::RangerRecursif(int i, Proteine p) {
          
          RangerRecursif(i+1, p);
          
-         if(p.test()) {
+//         if(p.test()) {
             p.neff = p.calculeNeff();
             if(p.neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -423,7 +448,11 @@ void Proteine::RangerRecursif(int i, Proteine p) {
                }
             neff = p.neff;
            }
-         }        
+//         }        
+      }
+      else{
+         p.proteine[i]->x = g;
+         p.proteine[i]->y = h;
       }
    }
 }
