@@ -489,33 +489,41 @@ bool Proteine::shift() {
    // ind stocks index of the first(from end) non three in vector pos
    int ind;
    bool b = true;
-   for (int i = l-1; i>=0; i--) {
-      if (pos[i] != 3) {
-         ind = i;
-         break;
+
+   while(b) {
+      b = false;
+      for (int i = l-1; i>=0; i--) {
+         if (pos[i] != 3) {
+            ind = i;
+            break;
+         }
+      }
+   
+   // We can suppose that ind won't be 0
+      if (ind != 0) {
+         if (pos[ind] == 0) {
+            proteine[ind]->x = proteine[ind-1]->x;
+            proteine[ind]->y = proteine[ind-1]->y+1;
+            if (!notOverlap(ind))
+               pos[ind]++;
+         } 
+         else if (pos[ind]==1) {
+            proteine[ind]->x = proteine[ind-1]->x-1;
+            proteine[ind]->y = proteine[ind-1]->y;
+            if (!notOverlap(ind))
+               pos[ind]++;
+         } 
+         else if (pos[ind]==2) {
+            proteine[ind]->x = proteine[ind-1]->x;
+            proteine[ind]->y = proteine[ind-1]->y-1;
+            if (!notOverlap(ind)) {
+               pos[ind]++;
+               b = true;
+            }
+         } 
       }
    }
-   // We can suppose that ind won't be 0
-   if (ind != 0) {
-      if (pos[ind] == 0) {
-         proteine[ind]->x = proteine[ind-1]->x;
-         proteine[ind]->y = proteine[ind-1]->y+1;
-         if (!notOverlap(ind))
-            pos[ind]++;
-      } 
-      else if (pos[ind]==1) {
-         proteine[ind]->x = proteine[ind-1]->x-1;
-         proteine[ind]->y = proteine[ind-1]->y;
-         if (!notOverlap(ind))
-            pos[ind]++;
-      } 
-      else if (pos[ind]==2) {
-         proteine[ind]->x = proteine[ind-1]->x;
-         proteine[ind]->y = proteine[ind-1]->y-1;
-      } 
       pos[ind]++;
-   }
-   b = (pos[ind]-pos[ind-1]) % 4 != 2;
    for (int i = ind+1; i < l; i++) {
       pos[i] = 0;
       proteine[i]->x = proteine[i-1]->x+1;
