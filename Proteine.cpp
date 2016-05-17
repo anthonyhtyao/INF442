@@ -485,9 +485,10 @@ bool Proteine::test() {
    return true;
 }
 
-void Proteine::shift() {
+bool Proteine::shift() {
    // ind stocks index of the first(from end) non three in vector pos
    int ind;
+   bool b = true;
    for (int i = l-1; i>=0; i--) {
       if (pos[i] != 3) {
          ind = i;
@@ -510,9 +511,28 @@ void Proteine::shift() {
       } 
       pos[ind] += 1;
    }
+   b = (pos[ind]-pos[ind-1]) % 4 != 2;
    for (int i = ind+1; i < l; i++) {
       pos[i] = 0;
-      proteine[i]->x = proteine[i]->x+1;
-      proteine[i]->y = proteine[i]->y;
+      proteine[i]->x = proteine[i-1]->x+1;
+      proteine[i]->y = proteine[i-1]->y;
+   }
+   b = b && test();
+   return b;
+}
+
+void Proteine::RangerAll(Proteine* p, std::vector<int> end){
+   bool b = true;
+   while (p->pos != end) {
+      if (b) {
+         p->neff = p->calculeNeff();
+         if(p->neff > neff) {
+            for(int q = 0; q<l ; q++){
+               *proteine[q] = *p->proteine[q];
+            }
+            neff = p->neff;
+         }
+      }
+      b = p->shift();
    }
 }
