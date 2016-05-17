@@ -52,7 +52,6 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein.neff << std::endl;
-   std::cout << protein.notOverlap(protein.l -1) << std::endl;
    protein.translation();
    showProtein(protein);
    
