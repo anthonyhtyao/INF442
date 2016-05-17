@@ -11,14 +11,14 @@ int main() {
    //std::string s = "PPPPHHPHHPPHPPPHPP";
    //std::string s = "HHPPPPHPPHHPPHHHHH";
    //std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
-   Proteine protein = Proteine(s);
+   Proteine* protein = Proteine(s);
    Proteine* p = new Proteine(s);
    std::vector<int> end;
    for (int i=0; i<p->l; i++){
       if (i ==1) end.push_back(1);
       else end.push_back(0);
    }
-   std::cout << "La longeur de la proteine est : " << protein.l << std::endl;
+   std::cout << "La longeur de la proteine est : " << protein->l << std::endl;
    
    
    for(int i = 0; i < protein->l; i++){
@@ -46,7 +46,7 @@ int main() {
    }
    
    //protein.RangerRecursif(1,p);
-   protein.RangerAll(p,end);
+   protein->RangerAll(p,end);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;
@@ -60,6 +60,7 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein->neff << std::endl;
+   protein->calculeNeff();
    protein->translation();
    showProtein(*protein);
    
