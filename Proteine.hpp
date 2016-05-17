@@ -14,6 +14,7 @@ class Proteine {
     
        //Constructor
        Proteine(std::string s);
+       ~Proteine() {};
        
        void calculV();
        void calculVInv();
@@ -29,7 +30,7 @@ class Proteine {
        bool notOverlap(int i);
        bool test();
        int calculeNeff();
-       void RangerRecursif(int i, Proteine p);
+       int RangerRecursif(int i, Proteine* p);
        
           
        //Protein sequence

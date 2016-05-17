@@ -10,7 +10,7 @@ class AcideAmine {
       //Constructor
       AcideAmine(int indice, char valeur, int x, int y);
       AcideAmine();
-      
+      ~AcideAmine() {};
       
       //Indice de l'acide anime
       int indice;

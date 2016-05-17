@@ -23,7 +23,6 @@ solutionExhaustive.o: solutionExhaustive.cpp Proteine.hpp gensvg.hpp AcideAmine.
 solutionExhaustive: solutionExhaustive.o Proteine.o AcideAmine.o gensvg.o
 	$(CC) -o $@ $^
 	./solutionExhaustive
-	gnome-open example.svg
 
 clean:
 	rm -f solutionApproche
