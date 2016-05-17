@@ -513,9 +513,23 @@ bool Proteine::shift() {
    }
    b = (pos[ind]-pos[ind-1]) % 4 != 2;
    for (int i = ind+1; i < l; i++) {
-      pos[i] = 0;
-      proteine[i]->x = proteine[i-1]->x+1;
-      proteine[i]->y = proteine[i-1]->y;
+      if (pos[i-1] != 2) {
+         pos[i] = 0;
+         proteine[i]->x = proteine[i-1]->x+1;
+         proteine[i]->y = proteine[i-1]->y;
+      }
+      else {
+         if(i==ind+1){
+            pos[i] = 1;
+            proteine[i]->x = proteine[i-1]->x;
+            proteine[i]->y = proteine[i-1]->y+1;
+         }
+         else{
+            pos[i] = 0;
+            proteine[i]->x = proteine[i-1]->x+1;
+            proteine[i]->y = proteine[i-1]->y;
+         }
+      }
    }
    b = b && test();
    return b;
