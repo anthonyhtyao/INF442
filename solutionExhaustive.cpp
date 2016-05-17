@@ -8,7 +8,8 @@
 int main() {
   
    //std::string s = "HPPHPPHPPHPH";
-   std::string s = "PPPPHHPHHPPHPPPHPP";
+   //std::string s = "PPPPHHPHHPPHPPPHPP";
+   std::string s = "HHPPPPHPPHHPPHHHHH";
    Proteine protein = Proteine(s);
    Proteine* p = new Proteine(s);
    std::vector<int> end;

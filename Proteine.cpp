@@ -500,45 +500,49 @@ bool Proteine::shift() {
       if (pos[ind] == 0) {
          proteine[ind]->x = proteine[ind-1]->x;
          proteine[ind]->y = proteine[ind-1]->y+1;
+         if (!notOverlap(ind))
+            pos[ind]++;
       } 
-      else if (pos[ind] == 1) {
+      else if (pos[ind]==1) {
          proteine[ind]->x = proteine[ind-1]->x-1;
          proteine[ind]->y = proteine[ind-1]->y;
+         if (!notOverlap(ind))
+            pos[ind]++;
       } 
-      else if (pos[ind] == 2) {
+      else if (pos[ind]==2) {
          proteine[ind]->x = proteine[ind-1]->x;
          proteine[ind]->y = proteine[ind-1]->y-1;
       } 
-      pos[ind] += 1;
+      pos[ind]++;
    }
    b = (pos[ind]-pos[ind-1]) % 4 != 2;
    for (int i = ind+1; i < l; i++) {
-      if (pos[i-1] != 2) {
-         pos[i] = 0;
-         proteine[i]->x = proteine[i-1]->x+1;
+      pos[i] = 0;
+      proteine[i]->x = proteine[i-1]->x+1;
+      proteine[i]->y = proteine[i-1]->y;
+      if (!notOverlap(i)) {
+         pos[i] = 1;
+         proteine[i]->x = proteine[i-1]->x;
+         proteine[i]->y = proteine[i-1]->y+1;
+      }
+      if (!notOverlap(i)) {
+         pos[i] = 2;
+         proteine[i]->x = proteine[i-1]->x-1;
          proteine[i]->y = proteine[i-1]->y;
       }
-      else {
-         if(i==ind+1){
-            pos[i] = 1;
-            proteine[i]->x = proteine[i-1]->x;
-            proteine[i]->y = proteine[i-1]->y+1;
-         }
-         else{
-            pos[i] = 0;
-            proteine[i]->x = proteine[i-1]->x+1;
-            proteine[i]->y = proteine[i-1]->y;
-         }
+      if (!notOverlap(i)) {
+         pos[i] = 3;
+         proteine[i]->x = proteine[i-1]->x;
+         proteine[i]->y = proteine[i-1]->y-1;
       }
    }
-   b = b && test();
    return b;
 }
 
 void Proteine::RangerAll(Proteine* p, std::vector<int> end){
    bool b = true;
    while (p->pos != end) {
-      if (b) {
+      if (p->test()) {
          p->neff = p->calculeNeff();
          if(p->neff > neff) {
             for(int q = 0; q<l ; q++){
