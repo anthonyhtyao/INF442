@@ -28,6 +28,7 @@ class Proteine {
 
        // Return true if no acide anime overlaps
        bool notOverlap(int i);
+       bool firstUp(int i);
        bool test();
        int calculeNeff();
        int RangerRecursif(int i, Proteine* p);
