@@ -31,12 +31,12 @@ class Proteine {
        bool test();
        int calculeNeff();
        int RangerRecursif(int i, Proteine* p);
-       
+       void shift(); 
           
        //Protein sequence
        std::string sequence;
        std::vector<AcideAmine*> proteine;
-       
+       std::vector<int> pos; 
        //Protein's length
        int l;
        int neff; 

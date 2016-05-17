@@ -12,11 +12,12 @@ Proteine::Proteine(std::string s) {
     l = s.size();
     
     for(int i=0; i<l; i++){
-       AcideAmine* a = new AcideAmine(i,s[i],0,i);
+       AcideAmine* a = new AcideAmine(i,s[i],i,0);
        proteine.push_back(a);
        if(s[i] == 'H') {
            hydrophobes.push_back(a);
-        }
+       }
+       pos.push_back(0);
     }
     
     neff = 0;
@@ -484,3 +485,34 @@ bool Proteine::test() {
    return true;
 }
 
+void Proteine::shift() {
+   // ind stocks index of the first(from end) non three in vector pos
+   int ind;
+   for (int i = l-1; i>=0; i--) {
+      if (pos[i] != 3) {
+         ind = i;
+         break;
+      }
+   }
+   // We can suppose that ind won't be 0
+   if (ind != 0) {
+      if (pos[ind] == 0) {
+         proteine[ind]->x = proteine[ind-1]->x;
+         proteine[ind]->y = proteine[ind-1]->y+1;
+      } 
+      else if (pos[ind] == 1) {
+         proteine[ind]->x = proteine[ind-1]->x-1;
+         proteine[ind]->y = proteine[ind-1]->y;
+      } 
+      else if (pos[ind] == 2) {
+         proteine[ind]->x = proteine[ind-1]->x;
+         proteine[ind]->y = proteine[ind-1]->y-1;
+      } 
+      pos[ind] += 1;
+   }
+   for (int i = ind+1; i < l; i++) {
+      pos[i] = 0;
+      proteine[i]->x = proteine[i]->x+1;
+      proteine[i]->y = proteine[i]->y;
+   }
+}
