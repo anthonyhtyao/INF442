@@ -38,7 +38,7 @@ void lien(int x1, int y1, int x2, int y2, ofstream& myfile) {
 // Generation a circle
 
 void circle(int x, int y, char v, ofstream& myfile) {
-    if (v == 'P')
+    if (v == 'H')
       myfile << "<circle cx=\"" << x << "\" cy=\"" << y << "\" r=\"6\" fill=\"black\" />" << endl;
     else
       myfile << "<circle cx=\"" << x << "\" cy=\"" << y << "\" r=\"6\" stroke=\"black\" stroke-width=\"1\" fill=\"white\" />" << endl;

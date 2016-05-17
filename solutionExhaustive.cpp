@@ -7,7 +7,7 @@
 
 int main() {
    
-   std::string s = "PHHPHHPHHPHP";
+   std::string s = "HPPHPPHPPHPH";
    Proteine protein = Proteine(s);
    Proteine p = Proteine(s);
    

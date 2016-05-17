@@ -14,8 +14,8 @@ Proteine::Proteine(std::string s) {
     for(int i=0; i<l; i++){
        AcideAmine* a = new AcideAmine(i,s[i],0,i);
        proteine.push_back(a);
-       if(s[i] == 'P') {
-           polaires.push_back(a);
+       if(s[i] == 'H') {
+           hydrophobes.push_back(a);
         }
     }
     
@@ -204,8 +204,8 @@ void Proteine::Ranger() {
 // Find P type Protein paired at left side  
    int compt = 0;
    std::cout << "Left P type protein ";
-   for(unsigned int r=0; r<polaires.size(); r++) {
-         int w = polaires[r]->indice;
+   for(unsigned int r=0; r<hydrophobes.size(); r++) {
+         int w = hydrophobes[r]->indice;
          if(w <= k) {
             if(isImpair && w%2 != 0){
                leftaux.push_back(w);
@@ -226,8 +226,8 @@ void Proteine::Ranger() {
 
 // Find P type Protein paired at right side
    std::cout << "Right P type protein ";
-   for(unsigned int r=0; r<polaires.size(); r++) {
-         int w = polaires[r]->indice;
+   for(unsigned int r=0; r<hydrophobes.size(); r++) {
+         int w = hydrophobes[r]->indice;
          if(w>k) {
             if(isImpair && w%2 == 0){
                right.push_back(w);
@@ -312,12 +312,12 @@ void Proteine::translation() {
    
 int Proteine::calculeNeff() {
    int n = 0;
-   for (unsigned  int i = 0; i < polaires.size(); i++) {
-      int ind = polaires[i]->indice;
+   for (unsigned  int i = 0; i < hydrophobes.size(); i++) {
+      int ind = hydrophobes[i]->indice;
       AcideAmine* a1 = new AcideAmine();
-      a1 = polaires[i];
-      for (unsigned  int j = i+1; j < polaires.size(); j++) {
-         int ind1 = polaires[j]->indice;
+      a1 = hydrophobes[i];
+      for (unsigned  int j = i+1; j < hydrophobes.size(); j++) {
+         int ind1 = hydrophobes[j]->indice;
          if (ind + 1 != ind1) {
             AcideAmine* a2 = new AcideAmine();
             a2 = proteine[ind1];

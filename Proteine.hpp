@@ -41,7 +41,7 @@ class Proteine {
        int neff; 
        
        //Vector of polar Amino Acids
-       std::vector<AcideAmine*> polaires;
+       std::vector<AcideAmine*> hydrophobes;
        std::vector<AcideAmine*> typePL;
        std::vector<AcideAmine*> typePR;
        
