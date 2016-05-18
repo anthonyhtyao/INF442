@@ -12,7 +12,7 @@ int main() {
    //std::string s = "HPHPPHHPHPPHPHHPPHPH";
    //std::string s = "HHPPPPHPPHHPPHHHHH";
    //std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
-   Proteine* protein = Proteine(s);
+   Proteine* protein = new Proteine(s);
    Proteine* p = new Proteine(s);
    std::vector<int> end;
    for (int i=0; i<p->l; i++){

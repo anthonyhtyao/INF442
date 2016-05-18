@@ -33,7 +33,6 @@ class Proteine {
        bool test();
        int calculeNeff();
        int RangerRecursif(int i, Proteine* p);
-       void shift(); 
        bool shift();
        int RangerAll(Proteine* p, std::vector<int> end); 
           
