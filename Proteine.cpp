@@ -12,11 +12,12 @@ Proteine::Proteine(std::string s) {
     l = s.size();
     
     for(int i=0; i<l; i++){
-       AcideAmine* a = new AcideAmine(i,s[i],0,i);
+       AcideAmine* a = new AcideAmine(i,s[i],i,0);
        proteine.push_back(a);
        if(s[i] == 'H') {
            hydrophobes.push_back(a);
-        }
+       }
+       pos.push_back(0);
     }
     
     neff = 0;
@@ -484,3 +485,133 @@ bool Proteine::test() {
    return true;
 }
 
+bool Proteine::shift() {
+   // ind stocks index of the first(from end) non three in vector pos
+   int ind;
+   bool b = true;
+
+   while(b) {
+      b = false;
+      for (int i = l-1; i>=0; i--) {
+         if (pos[i] != 3) {
+            ind = i;
+            break;
+         }
+      }
+   
+   // We can suppose that ind won't be 0
+      if (ind != 0) {
+         int position = nextPosition(ind, false);
+         if (position == 1) {
+            proteine[ind]->x = proteine[ind-1]->x;
+            proteine[ind]->y = proteine[ind-1]->y+1;
+            pos[ind] = 1;
+         } 
+         else if (position == 2) {
+            proteine[ind]->x = proteine[ind-1]->x-1;
+            proteine[ind]->y = proteine[ind-1]->y;
+            pos[ind] = 2;
+         } 
+         else if (position == 3) {
+            proteine[ind]->x = proteine[ind-1]->x;
+            proteine[ind]->y = proteine[ind-1]->y-1;
+            pos[ind] = 3;
+         }
+         else {
+            for (int k = ind; k<l; k++) {
+               proteine[k]->x = proteine[k-1]->x;
+               proteine[k]->y = proteine[k-1]->y-1;
+               pos[k] = 3;
+            }
+            b = true;
+         }
+      }   
+   }
+   
+   for (int i = ind+1; i < l; i++) {
+      pos[i] = 0;
+      int next = nextPosition(i, true);
+      if (next == 0) {
+         proteine[i]->x = proteine[i-1]->x+1;
+         proteine[i]->y = proteine[i-1]->y;
+      }
+      else if (next == 1) {
+         pos[i] = 1;
+         proteine[i]->x = proteine[i-1]->x;
+         proteine[i]->y = proteine[i-1]->y+1;
+      }
+      else if (next == 2) {
+         pos[i] = 2;
+         proteine[i]->x = proteine[i-1]->x-1;
+         proteine[i]->y = proteine[i-1]->y;
+      }
+      else if (next == 3) {
+         pos[i] = 3;
+         proteine[i]->x = proteine[i-1]->x;
+         proteine[i]->y = proteine[i-1]->y-1;
+      }
+      else {
+         for (int k = i; k < l; k++) {
+            pos[k] = 3;
+            proteine[k]->x = proteine[k-1]->x;
+            proteine[k]->y = proteine[k-1]->y-1;
+         }
+         return false;
+      }
+      
+   }
+   return true;
+}
+
+int Proteine::RangerAll(Proteine* p, std::vector<int> end){
+   bool b = true;
+   int nbOpt = 0;
+   while (p->pos != end) {
+      if (b ) {
+         p->neff = p->calculeNeff();
+         if(p->neff > neff) {
+            for(int q = 0; q<l ; q++){
+               *proteine[q] = *p->proteine[q];
+            }
+            neff = p->neff;
+            nbOpt = 1;
+         }
+         else if (p->neff == neff) nbOpt++;
+      }
+      b = p->shift();
+   }
+   return nbOpt;
+}
+
+bool Proteine::firstUp(int ind) {
+   for(int i =0;i<ind; i++){
+      if(pos[i] == 1) return false;
+   }
+   return true;
+}
+
+int Proteine::nextPosition(int ind, bool r) {
+   bool u = true, l = true, d = true;
+   d = !firstUp(ind);
+   if(pos[ind-1] == 0) l=false;
+   else if (pos[ind-1] == 1) d = false;
+   else if (pos[ind-1] == 2) r = false;
+   else u = false;
+   if(pos[ind] >= 1) u = false;
+   if (pos[ind] == 2) l = false;
+
+   if (!r && !u && !l && !d) return 0;
+   for (int i=0; i<ind-2; i++) {
+      AcideAmine a = *proteine[i];
+      AcideAmine b = *proteine[ind-1];
+      if(a.x == b.x+1 && a.y == b.y) r = false;
+      if(a.x == b.x && a.y == b.y+1) u = false;
+      else if(a.x == b.x-1 && a.y == b.y) l = false;
+      else if(a.x == b.x && a.y == b.y-1) d = false;
+   }
+   if (r) return 0;
+   if (u) return 1;
+   if (l) return 2;
+   if (d) return 3;
+   return 4;
+}

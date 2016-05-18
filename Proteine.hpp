@@ -28,15 +28,18 @@ class Proteine {
 
        // Return true if no acide anime overlaps
        bool notOverlap(int i);
+       bool firstUp(int i);
+       int nextPosition(int ind, bool r);
        bool test();
        int calculeNeff();
        int RangerRecursif(int i, Proteine* p);
-       
+       bool shift();
+       int RangerAll(Proteine* p, std::vector<int> end); 
           
        //Protein sequence
        std::string sequence;
        std::vector<AcideAmine*> proteine;
-       
+       std::vector<int> pos; 
        //Protein's length
        int l;
        int neff; 

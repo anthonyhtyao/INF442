@@ -6,16 +6,21 @@
 #include "gensvg.hpp"
 
 int main() {
-  
-//   std::string s = "HHHPPHPHPHPPHPHPHPPH";
-//   std::string s = "HPPHPPHPPHPHP";
-   std::string s = "PPPPHHPHHPPHPPPHPP";
+
+   std::string s = "HPPHPPHPPHPH";
+   //std::string s = "PPPPHHPHHPPHPPPHPP";
+   //std::string s = "HPHPPHHPHPPHPHHPPHPH";
+   //std::string s = "HHPPPPHPPHHPPHHHHH";
+   //std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
    Proteine* protein = new Proteine(s);
    Proteine* p = new Proteine(s);
-   
+   std::vector<int> end;
+   for (int i=0; i<p->l; i++){
+      if (i ==1) end.push_back(1);
+      else end.push_back(0);
+   }
    std::cout << "La longeur de la proteine est : " << protein->l << std::endl;
    
-   std::cout << "La sequence de la proteine est : ";
    
    for(int i = 0; i < protein->l; i++){
          std::cout << protein->proteine[i]->valeur;
@@ -41,8 +46,8 @@ int main() {
          std::cout << std::endl;
    }
    
-   protein->RangerRecursif(1,p);
-   
+   //protein->RangerRecursif(1,p);
+   int nbOpt = protein->RangerAll(p,end);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;
@@ -56,6 +61,8 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein->neff << std::endl;
+   std::cout << "Le nombre de solutions optimales : " << nbOpt << std::endl;
+   protein->calculeNeff();
    protein->translation();
    showProtein(*protein);
    
