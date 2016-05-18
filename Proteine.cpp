@@ -501,29 +501,28 @@ bool Proteine::shift() {
    
    // We can suppose that ind won't be 0
       if (ind != 0) {
-         if (pos[ind] == 0) {
+         int position = nextPosition(ind);
+         if (position == 1) {
             proteine[ind]->x = proteine[ind-1]->x;
             proteine[ind]->y = proteine[ind-1]->y+1;
-            if (!notOverlap(ind))
-               pos[ind]++;
+            pos[ind] = 1;
          } 
-         if (pos[ind]==1) {
+         else if (position == 2) {
             proteine[ind]->x = proteine[ind-1]->x-1;
             proteine[ind]->y = proteine[ind-1]->y;
-            if (!notOverlap(ind))
-               pos[ind]++;
+            pos[ind] = 2;
          } 
-         if (pos[ind]==2) {
+         else if (position == 3) {
             proteine[ind]->x = proteine[ind-1]->x;
             proteine[ind]->y = proteine[ind-1]->y-1;
-            if (!notOverlap(ind) || firstUp(ind)) {
-               pos[ind]++;
-               b = true;
-            }
-         } 
-      }
+            pos[ind] = 3;
+         }
+         else {
+            pos[ind] = 3;
+            b = true;
+         }
+      }   
    }
-      pos[ind]++;
    
    for (int i = ind+1; i < l; i++) {
       pos[i] = 0;
@@ -575,4 +574,25 @@ bool Proteine::firstUp(int ind) {
       if(pos[i] == 1) return false;
    }
    return true;
+}
+
+int Proteine::nextPosition(int ind) {
+   bool u = true, l = true, d = true;
+   d = !firstUp(ind);
+   if(pos[ind-1] == 0) l=false;
+   else if (pos[ind-1] == 1) d = false;
+   else u = false;
+   if(pos[ind] >= 1) u = false;
+   if (pos[ind] == 2) l = false;
+   for (int i=0; i<ind-2; i++) {
+      AcideAmine a = *proteine[i];
+      AcideAmine b = *proteine[ind-1];
+      if(a.x == b.x && a.y == b.y+1) u = false;
+      else if(a.x == b.x-1 && a.y == b.y) l = false;
+      else if(a.x == b.x && a.y == b.y-1) d = false;
+   }
+   if (u) return 1;
+   if (l) return 2;
+   if (d) return 3;
+   return 0;
 }
