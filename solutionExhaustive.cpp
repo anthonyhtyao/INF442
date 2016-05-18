@@ -7,9 +7,10 @@
 
 int main() {
   
-//   std::string s = "HHHPPHPHPHPPHPHPHPPH";
+   std::string s = "HHHPPHPHPHPPHPHPHPPH";
 //   std::string s = "HPPHPPHPPHPHP";
-   std::string s = "PPPPHHPHHPPHPPPHPP";
+//   std::string s = "PPPPHHPHHPPHPPPHPP";
+//   std::string s = "PHPPHPHPPPPHPPPPPH";
    Proteine* protein = new Proteine(s);
    Proteine* p = new Proteine(s);
    
@@ -41,7 +42,7 @@ int main() {
          std::cout << std::endl;
    }
    
-   protein->RangerRecursif(1,p);
+   protein->RangerRecursif(2,p);
    
    
    std::cout << std::endl;

@@ -366,108 +366,124 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
       
-      p->proteine[i]->x = p->proteine[i-1]->x;
-      p->proteine[i]->y = p->proteine[i-1]->y + 1;
+      if(p->proteine[i-1]->x != p->proteine[i-2]->x || p->proteine[i-1]->y +1 !=
+            p->proteine[i-2]->y){
       
-      if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
-         
-//         if(p.test()) {
-            p->neff = p->calculeNeff();
-            if(p->neff > neff) {
-               for(int q = 0; q<l ; q++){
-                  *proteine[q] = *p->proteine[q];
+         p->proteine[i]->x = p->proteine[i-1]->x;
+         p->proteine[i]->y = p->proteine[i-1]->y + 1;         
+      
+         if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
+//            if(RangerRecursif(i+1, p) == 4)
+//               return 4;
+            
+//          if(p.test()) {
+               p->neff = p->calculeNeff();
+               if(p->neff > neff) {
+                  for(int q = 0; q<l ; q++){
+                     *proteine[q] = *p->proteine[q];
+                  }
+               neff = p->neff;
                }
-            neff = p->neff;
-            }
-//         }
-      }
-      else{
-         p->proteine[i]->x = g;
-         p->proteine[i]->y = h;
-         s += 1;
+//          }
+         }
+         else{
+            p->proteine[i]->x = g;
+            p->proteine[i]->y = h;
+            s += 1;
+         }
       }
       
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
+      
+      if(p->proteine[i-1]->x != p->proteine[i-2]->x || p->proteine[i-1]->y - 1 !=
+            p->proteine[i-2]->y){
        
-      p->proteine[i]->x = p->proteine[i-1]->x;
-      p->proteine[i]->y = p->proteine[i-1]->y - 1;
+         p->proteine[i]->x = p->proteine[i-1]->x;
+         p->proteine[i]->y = p->proteine[i-1]->y - 1;
       
-      if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
+         if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
         
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
+//          if(RangerRecursif(i+1, p) == 4)
+//             return 4;
          
-//         if(p.test()) {
-            p->neff = p->calculeNeff();
-            if(p->neff > neff) {
-               for(int q = 0; q<l ; q++){
-                  *proteine[q] = *p->proteine[q];
+//          if(p.test()) {
+               p->neff = p->calculeNeff();
+               if(p->neff > neff) {
+                  for(int q = 0; q<l ; q++){
+                     *proteine[q] = *p->proteine[q];
+                  }
+               neff = p->neff;
                }
-            neff = p->neff;
-            }
-//         }
-      }
-      else{
-         p->proteine[i]->x = g;
-         p->proteine[i]->y = h;
-         s += 1;
+//          }
+         }
+         else{
+            p->proteine[i]->x = g;
+            p->proteine[i]->y = h;
+            s += 1;
+         }
       }
       
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
       
-      p->proteine[i]->x = p->proteine[i-1]->x - 1;
-      p->proteine[i]->y = p->proteine[i-1]->y;
+      if(p->proteine[i-1]->x -1 != p->proteine[i-2]->x || p->proteine[i-1]->y !=
+            p->proteine[i-2]->y){
       
-      if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
-         
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
+         p->proteine[i]->x = p->proteine[i-1]->x - 1;
+         p->proteine[i]->y = p->proteine[i-1]->y;
+      
+         if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
+            
+//          if(RangerRecursif(i+1, p) == 4)
+//               return 4;
         
-//         if(p.test()) {
-            p->neff = p->calculeNeff(); 
-            if(p->neff > neff) {
-               for(int q = 0; q<l ; q++){
-                  *proteine[q] = *p->proteine[q];
-               }            
-            neff = p->neff;
-            }
-//         }
-      }
-      else{
-         p->proteine[i]->x = g;
-         p->proteine[i]->y = h;
-         s += 1;
+//          if(p.test()) {
+               p->neff = p->calculeNeff(); 
+               if(p->neff > neff) {
+                  for(int q = 0; q<l ; q++){
+                     *proteine[q] = *p->proteine[q];
+                  }            
+               neff = p->neff;
+               }
+//          }
+         }
+         else{
+            p->proteine[i]->x = g;
+            p->proteine[i]->y = h;
+            s += 1;
+         }
       }
       
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
       
-      p->proteine[i]->x = p->proteine[i-1]->x + 1;
-      p->proteine[i]->y = p->proteine[i-1]->y;
+      if(p->proteine[i-1]->x +1 != p->proteine[i-2]->x || p->proteine[i-1]->y !=
+            p->proteine[i-2]->y){
       
-      if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
+         p->proteine[i]->x = p->proteine[i-1]->x + 1;
+         p->proteine[i]->y = p->proteine[i-1]->y;
+      
+         if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
          
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
+//          if(RangerRecursif(i+1, p) == 4)
+//               return 4;
          
-//         if(p.test()) {
-            p->neff = p->calculeNeff();
-            if(p->neff > neff) {
-               for(int q = 0; q<l ; q++){
-                  *proteine[q] = *p->proteine[q];
-               }
-            neff = p->neff;
-           }
-//         }        
-      }
-      else{
-         p->proteine[i]->x = g;
-         p->proteine[i]->y = h;
-         s += 1;
+//          if(p.test()) {
+               p->neff = p->calculeNeff();
+               if(p->neff > neff) {
+                  for(int q = 0; q<l ; q++){
+                     *proteine[q] = *p->proteine[q];
+                  }
+               neff = p->neff;
+            }
+//          }        
+         }
+         else{
+            p->proteine[i]->x = g;
+            p->proteine[i]->y = h;
+            s += 1;
+         }
       }
       
       return s;
