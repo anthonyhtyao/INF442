@@ -507,13 +507,13 @@ bool Proteine::shift() {
             if (!notOverlap(ind))
                pos[ind]++;
          } 
-         else if (pos[ind]==1) {
+         if (pos[ind]==1) {
             proteine[ind]->x = proteine[ind-1]->x-1;
             proteine[ind]->y = proteine[ind-1]->y;
             if (!notOverlap(ind))
                pos[ind]++;
          } 
-         else if (pos[ind]==2) {
+         if (pos[ind]==2) {
             proteine[ind]->x = proteine[ind-1]->x;
             proteine[ind]->y = proteine[ind-1]->y-1;
             if (!notOverlap(ind) || firstUp(ind)) {
@@ -550,8 +550,9 @@ bool Proteine::shift() {
    return b;
 }
 
-void Proteine::RangerAll(Proteine* p, std::vector<int> end){
+int Proteine::RangerAll(Proteine* p, std::vector<int> end){
    bool b = true;
+   int nbOpt = 0;
    while (p->pos != end) {
       if (p->test()) {
          p->neff = p->calculeNeff();
@@ -560,10 +561,13 @@ void Proteine::RangerAll(Proteine* p, std::vector<int> end){
                *proteine[q] = *p->proteine[q];
             }
             neff = p->neff;
+            nbOpt = 1;
          }
+         else if (p->neff == neff) nbOpt++;
       }
       b = p->shift();
    }
+   return nbOpt;
 }
 
 bool Proteine::firstUp(int ind) {

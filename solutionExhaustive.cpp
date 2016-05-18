@@ -6,9 +6,10 @@
 #include "gensvg.hpp"
 
 int main() {
-  
+
    std::string s = "HPPHPPHPPHPH";
    //std::string s = "PPPPHHPHHPPHPPPHPP";
+   //std::string s = "HPHPPHHPHPPHPHHPPHPH";
    //std::string s = "HHPPPPHPPHHPPHHHHH";
    //std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
    Proteine* protein = Proteine(s);
@@ -45,8 +46,8 @@ int main() {
          std::cout << std::endl;
    }
    
-   //protein.RangerRecursif(1,p);
-   protein->RangerAll(p,end);
+   //protein->RangerRecursif(1,p);
+   int nbOpt = protein->RangerAll(p,end);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;
@@ -60,6 +61,7 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein->neff << std::endl;
+   std::cout << "Le nombre de solutions optimales : " << nbOpt << std::endl;
    protein->calculeNeff();
    protein->translation();
    showProtein(*protein);
