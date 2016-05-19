@@ -18,6 +18,15 @@ Proteine::Proteine(std::string s) {
            hydrophobes.push_back(a);
        }
        pos.push_back(0);
+       contactPossible.push_back(0);
+    }
+    int n = 0;
+    for (int i=l-1; i>=0; i--) {
+       if (proteine[i]->valeur=='H') {
+          if (i==l-1) n=3;
+          else n+=2;
+       }
+       contactPossible[i] = n;
     }
     
     neff = 0;
@@ -39,7 +48,7 @@ void Proteine::calculV() {
       
       for(int k=0; k<l; k++){
          std::vector<int> tmp;
-         if(proteine[k]->valeur == 'P') {
+         if(proteine[k]->valeur == 'H') {
             if(k%2 != 0) courantI += 1;
             else courantP +=1;
          }
@@ -62,7 +71,7 @@ void Proteine::calculVInv() {
       }
       
       for(int k=l-1; k>=0; k--){
-         if(proteine[k]->valeur == 'P') {
+         if(proteine[k]->valeur == 'H') {
             if(k%2 != 0) courantI += 1;
             else courantP +=1;
          }         
@@ -102,6 +111,7 @@ void Proteine::RangerAutoRight(AcideAmine* a, AcideAmine* b) {
    
 }
 
+//Return indix of where nRef max
 int Proteine::nRefK() {
    
    int indMin1 = 0;
@@ -181,7 +191,11 @@ void Proteine::RangerAutoLeft(AcideAmine* a, AcideAmine* b) {
 }
 
 void Proteine::Ranger() {
-   
+   // Reshape
+   for (int i = 1; i < l; i++) {
+      proteine[i]->x = proteine[i-1]->x+1;
+      proteine[i]->y = proteine[i-1]->y;
+   } 
    bool isImpair = false;
    
    int k = nRefK();
@@ -197,7 +211,7 @@ void Proteine::Ranger() {
       nref = std::min(i1,p2);
       isImpair = true;
    }   
-   
+   std::cout << "La valeur nref : " << nref << std::endl;  
    std::vector<int> left;
    std::vector<int> right;
    std::vector<int> leftaux;
@@ -485,7 +499,7 @@ bool Proteine::test() {
    return true;
 }
 
-bool Proteine::shift() {
+bool Proteine::shift(int seuil) {
    // ind stocks index of the first(from end) non three in vector pos
    int ind;
    bool b = true;
@@ -497,6 +511,15 @@ bool Proteine::shift() {
             ind = i;
             break;
          }
+      }
+
+      if (neff + contactPossible[ind] < seuil) {
+         for (int k = ind; k<l; k++) {
+            proteine[k]->x = proteine[k-1]->x;
+            proteine[k]->y = proteine[k-1]->y-1;
+            pos[k] = 3;
+         }
+         return false;
       }
    
    // We can suppose that ind won't be 0
@@ -563,9 +586,10 @@ bool Proteine::shift() {
    return true;
 }
 
-int Proteine::RangerAll(Proteine* p, std::vector<int> end){
+int Proteine::RangerAll(Proteine* p, std::vector<int> end, int seuil){
    bool b = true;
    int nbOpt = 0;
+   neff = seuil;
    while (p->pos != end) {
       if (b ) {
          p->neff = p->calculeNeff();
@@ -578,7 +602,7 @@ int Proteine::RangerAll(Proteine* p, std::vector<int> end){
          }
          else if (p->neff == neff) nbOpt++;
       }
-      b = p->shift();
+      b = p->shift(neff);
    }
    return nbOpt;
 }
@@ -600,14 +624,15 @@ int Proteine::nextPosition(int ind, bool r) {
    if(pos[ind] >= 1) u = false;
    if (pos[ind] == 2) l = false;
 
-   if (!r && !u && !l && !d) return 0;
+   if (!r && !u && !l && !d) return 4;
    for (int i=0; i<ind-2; i++) {
       AcideAmine a = *proteine[i];
       AcideAmine b = *proteine[ind-1];
       if(a.x == b.x+1 && a.y == b.y) r = false;
-      if(a.x == b.x && a.y == b.y+1) u = false;
+      else if(a.x == b.x && a.y == b.y+1) u = false;
       else if(a.x == b.x-1 && a.y == b.y) l = false;
       else if(a.x == b.x && a.y == b.y-1) d = false;
+      if (!r && !u && !l && !d) return 4;
    }
    if (r) return 0;
    if (u) return 1;
