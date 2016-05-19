@@ -48,7 +48,7 @@ void Proteine::calculV() {
       
       for(int k=0; k<l; k++){
          std::vector<int> tmp;
-         if(proteine[k]->valeur == 'P') {
+         if(proteine[k]->valeur == 'H') {
             if(k%2 != 0) courantI += 1;
             else courantP +=1;
          }
@@ -71,7 +71,7 @@ void Proteine::calculVInv() {
       }
       
       for(int k=l-1; k>=0; k--){
-         if(proteine[k]->valeur == 'P') {
+         if(proteine[k]->valeur == 'H') {
             if(k%2 != 0) courantI += 1;
             else courantP +=1;
          }         
@@ -111,6 +111,7 @@ void Proteine::RangerAutoRight(AcideAmine* a, AcideAmine* b) {
    
 }
 
+//Return indix of where nRef max
 int Proteine::nRefK() {
    
    int indMin1 = 0;
@@ -190,7 +191,11 @@ void Proteine::RangerAutoLeft(AcideAmine* a, AcideAmine* b) {
 }
 
 void Proteine::Ranger() {
-   
+   // Reshape
+   for (int i = 1; i < l; i++) {
+      proteine[i]->x = proteine[i-1]->x+1;
+      proteine[i]->y = proteine[i-1]->y;
+   } 
    bool isImpair = false;
    
    int k = nRefK();
@@ -206,7 +211,7 @@ void Proteine::Ranger() {
       nref = std::min(i1,p2);
       isImpair = true;
    }   
-   
+   std::cout << "La valeur nref : " << nref << std::endl;  
    std::vector<int> left;
    std::vector<int> right;
    std::vector<int> leftaux;
