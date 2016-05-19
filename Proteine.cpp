@@ -326,6 +326,8 @@ void Proteine::translation() {
 
   
 int Proteine::calculeNeff() {
+   typeHR.clear();
+   typeHL.clear();
    int n = 0;
    for (unsigned  int i = 0; i < hydrophobes.size(); i++) {
       int ind = hydrophobes[i]->indice;
@@ -341,15 +343,15 @@ int Proteine::calculeNeff() {
             if (a1->x == a2->x) {
                if (a1->y == a2->y + 1 || a1->y == a2->y - 1) {
                   n++;
-                  typePL.push_back(a1);
-                  typePR.push_back(a2);
+                  typeHL.push_back(a1);
+                  typeHR.push_back(a2);
                }
             }
             else if (a1->y == a2->y) {
                if (a1->x == a2->x + 1 || a1->x == a2->x - 1) {
                   n++;
-                  typePL.push_back(a1);
-                  typePR.push_back(a2);
+                  typeHL.push_back(a1);
+                  typeHR.push_back(a2);
                }
             }
          }

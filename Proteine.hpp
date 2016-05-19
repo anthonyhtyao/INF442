@@ -47,8 +47,8 @@ class Proteine {
        
        //Vector of polar Amino Acids
        std::vector<AcideAmine*> hydrophobes;
-       std::vector<AcideAmine*> typePL;
-       std::vector<AcideAmine*> typePR;
+       std::vector<AcideAmine*> typeHL;
+       std::vector<AcideAmine*> typeHR;
        
        std::vector<std::vector<int> > v;
        std::vector<std::vector<int> > vInv;

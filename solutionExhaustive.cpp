@@ -7,8 +7,8 @@
 
 int main() {
 
-   //std::string s = "HPPHPPHPPHPH";
-   std::string s = "PPPPHHPHHPPHPPPHPP";
+   std::string s = "HPPHPPHPPHPH";
+   //std::string s = "PPPPHHPHHPPHPPPHPP";
    //std::string s = "HPHPPHHPHPPHPHHPPHPH";
    //std::string s = "HHPPPPHPPHHPPHHHHH";
    //std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
