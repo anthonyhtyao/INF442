@@ -38,6 +38,7 @@ int main() {
    std::cout << std::endl;
    
    protein1.Ranger();
+   protein1.translation();
 
    std::cout << "neff : " << protein1.neff << std::endl;
    

@@ -47,7 +47,10 @@ int main() {
    }
    
    //protein->RangerRecursif(1,p);
-   int nbOpt = protein->RangerAll(p,end,0);
+   std::cout << "Solution approche, to find neff seuil" << std::endl;
+   protein->Ranger();
+   std::cout << "Solution approche end" << std::endl;
+   int nbOpt = protein->RangerAll(p,end);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;

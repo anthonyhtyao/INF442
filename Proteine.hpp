@@ -34,7 +34,7 @@ class Proteine {
        int calculeNeff();
        int RangerRecursif(int i, Proteine* p);
        bool shift(int seuil);
-       int RangerAll(Proteine* p, std::vector<int> end, int seuil); 
+       int RangerAll(Proteine* p, std::vector<int> end); 
           
        //Protein sequence
        std::string sequence;
@@ -47,8 +47,8 @@ class Proteine {
        
        //Vector of polar Amino Acids
        std::vector<AcideAmine*> hydrophobes;
-       std::vector<AcideAmine*> typePL;
-       std::vector<AcideAmine*> typePR;
+       std::vector<AcideAmine*> typeHL;
+       std::vector<AcideAmine*> typeHR;
        
        std::vector<std::vector<int> > v;
        std::vector<std::vector<int> > vInv;

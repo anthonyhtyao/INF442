@@ -53,9 +53,9 @@ void showProtein(Proteine p) {
   ofstream myfile;
   myfile.open ("example.svg");
   header(myfile, IMG_WIDTH, IMG_HEIGHT);
-  for (unsigned int i=0; i< p.typePL.size(); i++) {
+  for (unsigned int i=0; i< p.typeHL.size(); i++) {
 //    cout << p.typePL[i].y << endl;
-    lien(p.typePL[i]->x*coeff, p.typePL[i]->y*coeff, p.typePR[i]->x*coeff, p.typePR[i]->y*coeff, myfile);
+    lien(p.typeHL[i]->x*coeff, p.typeHL[i]->y*coeff, p.typeHR[i]->x*coeff, p.typeHR[i]->y*coeff, myfile);
   }
   for (int i = 0; i < p.l; i++) {
     vector<AcideAmine*> lst = p.proteine;
