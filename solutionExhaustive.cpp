@@ -47,7 +47,7 @@ int main() {
    }
    
    //protein->RangerRecursif(1,p);
-   int nbOpt = protein->RangerAll(p,end);
+   int nbOpt = protein->RangerAll(p,end,0);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;

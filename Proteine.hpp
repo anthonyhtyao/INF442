@@ -33,13 +33,14 @@ class Proteine {
        bool test();
        int calculeNeff();
        int RangerRecursif(int i, Proteine* p);
-       bool shift();
-       int RangerAll(Proteine* p, std::vector<int> end); 
+       bool shift(int seuil);
+       int RangerAll(Proteine* p, std::vector<int> end, int seuil); 
           
        //Protein sequence
        std::string sequence;
        std::vector<AcideAmine*> proteine;
        std::vector<int> pos; 
+       std::vector<int> contactPossible; 
        //Protein's length
        int l;
        int neff; 
