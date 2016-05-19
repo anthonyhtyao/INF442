@@ -307,7 +307,6 @@ void Proteine::Ranger() {
 
    neff = calculeNeff();
    
-   translation();
 /*
    for(int r=0; r<nref; r++){
       int ind = leftaux[nref-1-r];
@@ -586,10 +585,9 @@ bool Proteine::shift(int seuil) {
    return true;
 }
 
-int Proteine::RangerAll(Proteine* p, std::vector<int> end, int seuil){
+int Proteine::RangerAll(Proteine* p, std::vector<int> end){
    bool b = true;
    int nbOpt = 0;
-   neff = seuil;
    while (p->pos != end) {
       if (b ) {
          p->neff = p->calculeNeff();
