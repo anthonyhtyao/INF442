@@ -4,13 +4,10 @@
 #include "Proteine.hpp"
 #include "AcideAmine.hpp"
 
-//using namespace std;
-
 Proteine::Proteine(std::string s) {
 
     sequence = s;
     l = s.size();
-    
     for(int i=0; i<l; i++){
        AcideAmine* a = new AcideAmine(i,s[i],i,0);
        proteine.push_back(a);
@@ -28,24 +25,15 @@ Proteine::Proteine(std::string s) {
        }
        contactPossible[i] = n;
     }
-    
     neff = 0;
-    
     calculV();
     calculVInv();
-
-
-/*    for(std::string::iterator it = s.begin(); it!=s.end(); it++) {
-       AcideAmine a = AcideAmine()
-    }
-*/                
 }
  
 void Proteine::calculV() {
       
       int courantI = 0;
       int courantP = 0;
-      
       for(int k=0; k<l; k++){
          std::vector<int> tmp;
          if(proteine[k]->valeur == 'H') {
@@ -62,7 +50,6 @@ void Proteine::calculVInv() {
       
       int courantI = 0;
       int courantP = 0;
-      
       std::vector<int> aux;
       aux.push_back(0);
       aux.push_back(0);
@@ -80,35 +67,50 @@ void Proteine::calculVInv() {
       }
 }
 
- 
 void Proteine::RangerAutoRight(AcideAmine* a, AcideAmine* b) {
    
    int i = a->indice;
    int j = b->indice;
-   
    int y1 = a->y;
    int y2 = b->y; 
    int dist_y = y1 - y2 -1;
-   
    int nb = j - i -1;
-   
    int dist_x = (nb - dist_y)/2;
-   
-   for(  int k=i+1; k<=i+dist_x; k++){
+   for(int k=i+1; k<=i+dist_x; k++){
       proteine[k]->x = a->x + k - i;
       proteine[k]->y = a->y;
    }
-   
-   for(  int k=i+dist_x+1; k<=i+2*dist_x; k++){
+   for(int k=i+dist_x+1; k<=i+2*dist_x; k++){
       proteine[k]->x = a->x + dist_x - (k - i -dist_x -1);
       proteine[k]->y = a->y -1;
    }
-   
-   for(  int k=j-dist_y; k<=j-1; k++){
+   for(int k=j-dist_y; k<=j-1; k++){
       proteine[k]->x = a->x;
       proteine[k]->y = b->y + (j-k);
    }
+}
+
+void Proteine::RangerAutoLeft(AcideAmine* a, AcideAmine* b) {
    
+   int i = a->indice;
+   int j = b->indice;
+   int y1 = a->y;
+   int y2 = b->y; 
+   int dist_y = y1 - y2 -1;
+   int nb = i - j -1;
+   int dist_x = (nb - dist_y)/2;
+   for(int k=i-1; k >= i-dist_x; k--){
+      proteine[k]->x = a->x - (i - k);
+      proteine[k]->y = a->y;
+   }
+   for(int k= i - dist_x - 1; k >= i - 2*dist_x; k--){
+      proteine[k]->x = a->x - (2*dist_x + 1 - (i-k));
+      proteine[k]->y = a->y - 1;
+   }
+   for(int k=j+1; k<=j+dist_y; k++){
+      proteine[k]->x = a->x;
+      proteine[k]->y = b->y + k -j;
+   }
 }
 
 //Return indix of where nRef max
@@ -116,18 +118,13 @@ int Proteine::nRefK() {
    
    int indMin1 = 0;
    int indMax1 = 0;
-   
    int indMin2 = 0;
    int indMax2 = 0;
-   
    int courantMax1 = 0;
    int courantMax2 = 0;
-   
-   for(  int k=0; k<l; k++){
-      
+   for(int k=0; k<l; k++){
       int min1 = std::min(v[k][0],vInv[k][1]);
       int min2 = std::min(v[k][1],vInv[k][0]);
-      
       if(min1 >= courantMax1) {
          indMax1 = k;
          if(min1 > courantMax1) {
@@ -135,7 +132,6 @@ int Proteine::nRefK() {
             courantMax1 = min1;
          }
       }
-      
       if(min2 >= courantMax2) {
          indMax2 = k;
          if(min2 > courantMax2) {
@@ -147,47 +143,11 @@ int Proteine::nRefK() {
    
    int indMin = indMin1;
    int indMax = indMax1;
-   
    if(courantMax2 > courantMax1) {
       indMin = indMin2;
       indMax = indMax2;
    }
-   
-//   std::cout << indMin << " " << indMax << std::endl;
-   
    return (indMin + indMax)/2;
-   
-}
-
-void Proteine::RangerAutoLeft(AcideAmine* a, AcideAmine* b) {
-   
-   int i = a->indice;
-   int j = b->indice;
-   
-   int y1 = a->y;
-   int y2 = b->y; 
-   int dist_y = y1 - y2 -1;
-   
-   int nb = i - j -1;
-   
-   int dist_x = (nb - dist_y)/2;
-   
-   for(  int k=i-1; k >= i-dist_x; k--){
-      proteine[k]->x = a->x - (i - k);
-      proteine[k]->y = a->y;
-   }
-   
-   for(  int k= i - dist_x - 1; k >= i - 2*dist_x; k--){
-      
-      proteine[k]->x = a->x - (2*dist_x + 1 - (i-k));
-      proteine[k]->y = a->y - 1;
-   }
-
-   for(  int k=j+1; k<=j+dist_y; k++){
-      proteine[k]->x = a->x;
-      proteine[k]->y = b->y + k -j;
-   }
-  
 }
 
 void Proteine::Ranger() {
@@ -197,14 +157,12 @@ void Proteine::Ranger() {
       proteine[i]->y = proteine[i-1]->y;
    } 
    bool isImpair = false;
-   
    int k = nRefK();
    std::cout << "La valeur de k : " << k << std::endl;
    int i1 = v[k][0];
    int p1 = v[k][1];
    int i2 = vInv[k][0];
    int p2 = vInv[k][1];
-  
 // Get nref value 
    int nref = std::min(p1,i2);
    if(std::min(i1,p2)>std::min(p1,i2)) {
@@ -216,7 +174,7 @@ void Proteine::Ranger() {
    std::vector<int> right;
    std::vector<int> leftaux;
 
-// Find P type Protein paired at left side  
+// Find H type Protein paired at left side  
    int compt = 0;
    std::cout << "Left P type protein ";
    for(unsigned int r=0; r<hydrophobes.size(); r++) {
@@ -236,10 +194,9 @@ void Proteine::Ranger() {
          if(compt == nref) break;
    }
    std::cout << std::endl;
-      
    compt = 0;
 
-// Find P type Protein paired at right side
+// Find H type Protein paired at right side
    std::cout << "Right P type protein ";
    for(unsigned int r=0; r<hydrophobes.size(); r++) {
          int w = hydrophobes[r]->indice;
@@ -264,57 +221,36 @@ void Proteine::Ranger() {
       left.push_back(ind);
    }
    
-            
+   // Set each acide anime position          
    proteine[k]->x = 0;
    proteine[k]->y = 0;
-   
    proteine[k+1]->x = 1;
    proteine[k+1]->y = 0;
-   
    int tt = k - left[0];
    proteine[left[0]]->x = 0;
    proteine[left[0]]->y = -tt;
-   
    proteine[right[0]]->x = 1;
    proteine[right[0]]->y = -tt;
-   
    RangerAutoLeft(proteine[k],proteine[left[0]]);
    RangerAutoRight(proteine[k+1],proteine[right[0]]);
-   
    for(int r = 1; r < nref; r++){
-      
       tt = std::min(left[r-1] - left[r], right[r] - right[r-1]);
       proteine[left[r]]->x = 0;
       proteine[left[r]]->y = proteine[left[r-1]]->y - tt;
-      
       proteine[right[r]]->x = 1;
       proteine[right[r]]->y = proteine[right[r-1]]->y - tt;
-      
       RangerAutoLeft(proteine[left[r-1]], proteine[left[r]]);
       RangerAutoRight(proteine[right[r-1]],proteine[right[r]]);
-      
    }
    
    proteine[0]->x = proteine[k]->x;
    proteine[0]->y = proteine[left[nref -1]]->y - left[nref-1];
-   
    RangerAutoLeft(proteine[left[nref-1]],proteine[0]);   
-   
    proteine[l-1]->x = proteine[k+1]->x;
    proteine[l-1]->y = proteine[right[nref -1]]->y - (l-1 - right[nref -1]);   
-   
    RangerAutoRight(proteine[right[nref-1]], proteine[l-1]);
-
-   neff = calculeNeff();
    
-/*
-   for(int r=0; r<nref; r++){
-      int ind = leftaux[nref-1-r];
-      typePL.push_back(proteine[ind]);
-      ind = right[r];
-      typePR.push_back(proteine[ind]);
-   }
-*/   
+   neff = calculeNeff();
 }
 
 void Proteine::translation() {
@@ -324,20 +260,17 @@ void Proteine::translation() {
    }
 }
 
-  
 int Proteine::calculeNeff() {
    typeHR.clear();
    typeHL.clear();
    int n = 0;
    for (unsigned  int i = 0; i < hydrophobes.size(); i++) {
       int ind = hydrophobes[i]->indice;
-//      AcideAmine* a1 = new AcideAmine();
       AcideAmine* a1;
       a1 = hydrophobes[i];
       for (unsigned  int j = i+1; j < hydrophobes.size(); j++) {
          int ind1 = hydrophobes[j]->indice;
          if (ind + 1 != ind1) {
-//            AcideAmine* a2 = new AcideAmine();
             AcideAmine* a2;
             a2 = proteine[ind1];
             if (a1->x == a2->x) {
@@ -360,7 +293,6 @@ int Proteine::calculeNeff() {
    return n;
 }
 
-
 bool Proteine::notOverlap(int i) {
    bool b = true;
    for (int k = 0; k <i; k++) {
@@ -375,21 +307,11 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
    else {
       int g,h;
       int s=0;
-      
-//      int xPre = p.proteine[i-1]->x;
-//      int yPre = p.proteine[i-1]->y;
-      
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
-      
       p->proteine[i]->x = p->proteine[i-1]->x;
       p->proteine[i]->y = p->proteine[i-1]->y + 1;
-      
       if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
-         
-//         if(p.test()) {
             p->neff = p->calculeNeff();
             if(p->neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -397,7 +319,6 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
                }
             neff = p->neff;
             }
-//         }
       }
       else{
          p->proteine[i]->x = g;
@@ -407,16 +328,9 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
       
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
-       
       p->proteine[i]->x = p->proteine[i-1]->x;
       p->proteine[i]->y = p->proteine[i-1]->y - 1;
-      
       if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
-        
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
-         
-//         if(p.test()) {
             p->neff = p->calculeNeff();
             if(p->neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -424,7 +338,6 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
                }
             neff = p->neff;
             }
-//         }
       }
       else{
          p->proteine[i]->x = g;
@@ -434,16 +347,10 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
       
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
-      
       p->proteine[i]->x = p->proteine[i-1]->x - 1;
       p->proteine[i]->y = p->proteine[i-1]->y;
       
       if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
-         
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
-        
-//         if(p.test()) {
             p->neff = p->calculeNeff(); 
             if(p->neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -451,7 +358,6 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
                }            
             neff = p->neff;
             }
-//         }
       }
       else{
          p->proteine[i]->x = g;
@@ -461,16 +367,10 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
       
       g = p->proteine[i]->x;
       h = p->proteine[i]->y;
-      
       p->proteine[i]->x = p->proteine[i-1]->x + 1;
       p->proteine[i]->y = p->proteine[i-1]->y;
       
       if(p->notOverlap(i) && (RangerRecursif(i+1, p) != 4)) {
-         
-//         if(RangerRecursif(i+1, p) == 4)
-//            return 4;
-         
-//         if(p.test()) {
             p->neff = p->calculeNeff();
             if(p->neff > neff) {
                for(int q = 0; q<l ; q++){
@@ -478,20 +378,17 @@ int Proteine::RangerRecursif(int i, Proteine* p) {
                }
             neff = p->neff;
            }
-//         }        
       }
       else{
          p->proteine[i]->x = g;
          p->proteine[i]->y = h;
          s += 1;
       }
-      
       return s;
    }
 }
 
 bool Proteine::test() {
-   
    for (int i=0; i<l; i++) {
       for (int j = i+1; j<l;j++) {
          if ((proteine[i]->x == proteine[j]->x)&&(proteine[i]->y == proteine[j]->y)) return false;   
@@ -504,7 +401,6 @@ bool Proteine::shift(int seuil) {
    // ind stocks index of the first(from end) non three in vector pos
    int ind;
    bool b = true;
-
    while(b) {
       b = false;
       for (int i = l-1; i>=0; i--) {
@@ -513,7 +409,6 @@ bool Proteine::shift(int seuil) {
             break;
          }
       }
-
       if (neff + contactPossible[ind] < seuil) {
          for (int k = ind; k<l; k++) {
             proteine[k]->x = proteine[k-1]->x;
@@ -582,7 +477,6 @@ bool Proteine::shift(int seuil) {
          }
          return false;
       }
-      
    }
    return true;
 }

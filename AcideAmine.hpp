@@ -21,7 +21,6 @@ class AcideAmine {
       
       //H ou P
       char valeur;
-      
 };
       
 #endif      
