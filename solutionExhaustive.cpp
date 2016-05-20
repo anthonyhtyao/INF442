@@ -21,19 +21,15 @@ int main() {
    }
    std::cout << "La longeur de la proteine est : " << protein->l << std::endl;
    
-   
    for(int i = 0; i < protein->l; i++){
          std::cout << protein->proteine[i]->valeur;
    }
-               
    std::cout << std::endl;
    std::cout << "Les acides animes hydrophobes sont aux positions : ";
-   
    
    for(unsigned int i = 0; i < protein->hydrophobes.size(); i++){
          std::cout << protein->hydrophobes[i]->indice << " ";
    }
-   
    std::cout << std::endl;
    std::cout << std::endl;
    std::cout << "La structure avant recherche :" << std::endl;
@@ -68,5 +64,4 @@ int main() {
    protein->calculeNeff();
    protein->translation();
    showProtein(*protein);
-   
 }
