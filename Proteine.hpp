@@ -14,6 +14,7 @@ class Proteine {
     
        //Constructor
        Proteine(std::string s);
+       ~Proteine() {};
        
        void calculV();
        void calculVInv();
@@ -22,12 +23,16 @@ class Proteine {
        void RangerAutoLeft(AcideAmine* a, AcideAmine* b);
        
        int nRefK();
-       int calculeNeff();
        void Ranger();
        void translation();
 
        // Return true if no acide anime overlaps
        bool notOverlap(int i);
+       bool test();
+       int calculeNeff();
+       int RangerRecursif(int i, Proteine* p);
+       
+          
        //Protein sequence
        std::string sequence;
        std::vector<AcideAmine*> proteine;
@@ -37,7 +42,7 @@ class Proteine {
        int neff; 
        
        //Vector of polar Amino Acids
-       std::vector<AcideAmine*> polaires;
+       std::vector<AcideAmine*> hydrophobes;
        std::vector<AcideAmine*> typePL;
        std::vector<AcideAmine*> typePR;
        
