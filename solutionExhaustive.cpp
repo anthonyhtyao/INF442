@@ -42,7 +42,7 @@ int main() {
          std::cout << std::endl;
    }
    
-   //protein->RangerRecursif(1,p);
+   //protein->RangerRecursif(2,p);
    std::cout << "Solution approche, to find neff seuil" << std::endl;
    protein->Ranger();
    std::cout << "Solution approche end" << std::endl;
