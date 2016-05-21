@@ -3,6 +3,7 @@
 #include <iostream>
 #include "mpi.h"
 #include <string>
+#include <stdlib.h>
 
 std::string genere(int r, int puiss){
    if(r==1) {
@@ -81,7 +82,7 @@ int main(int argc, char **argv) {
          0, MPI_COMM_WORLD);
 
 
-   std::string sPro = "PHPPHPHPPPPHPPPPPH";
+   std::string sPro = "HPPHPPHPPHPH";
    Proteine* protein = new Proteine(sPro);
    Proteine* p = new Proteine(sPro);
 
