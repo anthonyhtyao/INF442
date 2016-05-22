@@ -7,10 +7,11 @@
 
 int main() {
   
-   std::string s = "HHHPPHPHPHPPHPHPHPPH";
-//   std::string s = "HPPHPPHPPHPHP";
+//   std::string s = "HHHPPHPHPHPPHPHPHPPH";
+//   std::string s = "HHHH";
+//   std::string s = "HPPHPPHPPHPH";
 //   std::string s = "PPPPHHPHHPPHPPPHPP";
-//   std::string s = "PHPPHPHPPPPHPPPPPH";
+   std::string s = "PHPPHPHPPPPHPPPPPH";
    Proteine* protein = new Proteine(s);
    Proteine* p = new Proteine(s);
    
@@ -41,9 +42,10 @@ int main() {
                protein->proteine[i]->y << ") ";
          std::cout << std::endl;
    }
-   
+
    protein->RangerRecursif(2,p);
-   
+//   protein->nbOpt = 0;
+//   protein->RangerRecursif(2,p);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;
@@ -57,6 +59,8 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein->neff << std::endl;
+   std::cout << "Le nombre de solutions optimales est : " << (protein->nbOpt)/2 <<
+         std::endl;
    protein->translation();
    showProtein(*protein);
    

@@ -82,6 +82,7 @@ int main(int argc, char **argv) {
    
    
    std::string sPro = "PHPPHPHPPPPHPPPPPH";
+//   std::string sPro = "HHHH";
    Proteine* protein = new Proteine(sPro);
    Proteine* p = new Proteine(sPro);
    
@@ -113,8 +114,21 @@ int main(int argc, char **argv) {
    int neffMax;
    MPI_Reduce(&neffLocal, &neffMax, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
    
+   int nbOptLocal = 0;
+   if(neffLocal == neffMax) nbOptLocal = protein->nbOpt;
+   int nbOptGlobal;
+   MPI_Reduce(&nbOptLocal, &nbOptGlobal, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+   
+   std::cout << "La valeur de neff locale est : " << neffLocal << std::endl;
+   std::cout << "Le nombre de solutions optimales est : " << nbOptLocal <<
+            std::endl;
+   
+   nbOptGlobal = nbOptGlobal /2;
+   
    if(taskid == 0){
       std::cout << "La valeur de neff maximale est : " << neffMax << std::endl;
+      std::cout << "Le nombre de solutions optimales est : " << nbOptGlobal <<
+            std::endl;
    }
    
    MPI_Finalize();

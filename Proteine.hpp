@@ -40,6 +40,7 @@ class Proteine {
        //Protein's length
        int l;
        int neff; 
+       int nbOpt;
        
        //Vector of polar Amino Acids
        std::vector<AcideAmine*> hydrophobes;
