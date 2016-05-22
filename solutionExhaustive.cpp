@@ -7,7 +7,8 @@
 
 int main() {
 
-   std::string s = "HPPHPPHPPHPH";
+   //std::string s = "HPPHPPHPPHPH";
+   std::string s = "PHPPHPHPPPPHPPPPPH";
    //std::string s = "PPPPHHPHHPPHPPPHPP";
    //std::string s = "HPHPPHHPHPPHPHHPPHPH";
    //std::string s = "HHPPPPHPPHHPPHHHHH";
@@ -42,11 +43,11 @@ int main() {
          std::cout << std::endl;
    }
    
-   //protein->RangerRecursif(2,p);
-   std::cout << "Solution approche, to find neff seuil" << std::endl;
-   protein->Ranger();
-   std::cout << "Solution approche end" << std::endl;
-   int nbOpt = protein->RangerAll(p,end);
+   protein->RangerRecursif(2,p);
+   //std::cout << "Solution approche, to find neff seuil" << std::endl;
+   //protein->Ranger();
+   //std::cout << "Solution approche end" << std::endl;
+   //int nbSolPossible = protein->RangerAll(p,end);
    
    std::cout << std::endl;
    std::cout << "La structure apres recherche : " << std::endl;
@@ -60,7 +61,8 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein->neff << std::endl;
-   std::cout << "Le nombre de solutions optimales : " << nbOpt << std::endl;
+   std::cout << "Le nombre de solutions optimales est : " << (protein->nbOpt)/2 << std::endl;
+   //std::cout << "Le nombre de solutions optimales : " << nbSolPossible << std::endl;
    protein->calculeNeff();
    protein->translation();
    showProtein(*protein);
