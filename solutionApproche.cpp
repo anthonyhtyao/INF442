@@ -10,13 +10,13 @@
 int main() {
 
 //Example 3
-   std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
+//   std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
 
 //Example 2
 //   std::string s = "HHHPPHPHPHPPHPHPHPPH";
 
 //Example 1
-//   std::string s = "PHPPHPHPPPPHPPPPPHPPHHP";
+   std::string s = "PHPPHPHPPPPHPPPPPHPPHHP";
    Proteine protein1 = Proteine(s);
    
    std::cout << "La longeur de la proteine est : " << protein1.l << std::endl;

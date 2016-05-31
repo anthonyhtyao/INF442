@@ -574,7 +574,7 @@ bool Proteine::shift(int seuil) {
 int Proteine::RangerAll(Proteine* p, std::vector<int> end){
    bool b = true;
    int nbOpt = 0;
-   while (p->pos != end) {
+   while (p->pos < end) {
       if (b ) {
          p->neff = p->calculeNeff();
          if(p->neff > neff) {

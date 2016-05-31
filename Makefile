@@ -20,10 +20,19 @@ solutionApproche: solutionApproche.o Proteine.o AcideAmine.o gensvg.o
 solutionExhaustive.o: solutionExhaustive.cpp Proteine.hpp gensvg.hpp AcideAmine.hpp
 	$(CC) -c $<
 
-solutionExhaustive: solutionExhaustive.o Proteine.o AcideAmine.o gensvg.o
+solutionExhaustiveRec: solutionExhaustive.o Proteine.o AcideAmine.o gensvg.o
 	$(CC) -o $@ $^
-	./solutionExhaustive
+	./solutionExhaustiveRec 1
 	gnome-open example.svg
+
+solutionExhaustiveIte: solutionExhaustive.o Proteine.o AcideAmine.o gensvg.o
+	$(CC) -o $@ $^
+	./solutionExhaustiveIte 0
+	gnome-open example.svg
+
+solutionDistrib: Proteine.o AcideAmine.o solutionExhaustiveDistrib.cpp
+	mpic++ $^ -o $@
+	mpirun -np 3 $@
 
 clean:
 	rm -f solutionApproche
