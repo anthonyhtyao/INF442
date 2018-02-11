@@ -5,11 +5,15 @@
 #include "AcideAmine.hpp"
 #include "gensvg.hpp"
 
-int main() {
+int main(int argc, char** argv) {
 
-   std::string s = "HPPHPPHPPHPH";
+   std::string s = "";
+   if (*argv[1] == '1')
+   //std::string s = "HPPHPPHPPHPH";
+     s = "PHPPHPHPPPPHPPPPPH";
    //std::string s = "PPPPHHPHHPPHPPPHPP";
-   //std::string s = "HPHPPHHPHPPHPHHPPHPH";
+   else
+     s = "HPHPPHHPHPPHPHHPPHPH";
    //std::string s = "HHPPPPHPPHHPPHHHHH";
    //std::string s = "HHPHPPPPHHPHHPPPHPHHPPH";
    Proteine* protein = new Proteine(s);
@@ -38,19 +42,23 @@ int main() {
          std::cout << "Indice : " << protein->proteine[i]->indice << " ";
          std::cout << protein->proteine[i]->valeur << " ";
          std::cout << "Position : (" << protein->proteine[i]->x << "," <<
-               protein->proteine[i]->y << ") ";
+         protein->proteine[i]->y << ") ";
          std::cout << std::endl;
    }
    
-   //protein->RangerRecursif(1,p);
-   std::cout << "Solution approche, to find neff seuil" << std::endl;
-   protein->Ranger();
-   std::cout << "Solution approche end" << std::endl;
-   int nbOpt = protein->RangerAll(p,end);
-   
-   std::cout << std::endl;
+   int nbSolPossible = 0;
+   if (*argv[1] == '1')
+     protein->RangerRecursif(2,p);
+   else {
+     std::cout << "Solution approche, to find neff seuil" << std::endl;
+     protein->Ranger();
+     std::cout << "Solution approche end" << std::endl;
+     nbSolPossible = protein->RangerAll(p,end);
+     std::cout << std::endl;
+   }
    std::cout << "La structure apres recherche : " << std::endl;
    
+
    for(int i = 0; i < protein->l; i++){
          std::cout << "Indice : " << protein->proteine[i]->indice << " ";
          std::cout << protein->proteine[i]->valeur << " ";
@@ -60,8 +68,12 @@ int main() {
    }
    
    std::cout << "La valeur de Neff vaut : " << protein->neff << std::endl;
-   std::cout << "Le nombre de solutions optimales : " << nbOpt << std::endl;
+   if (*argv[1] == '1')
+     std::cout << "Le nombre de solutions optimales est : " << (protein->nbOpt)/2 << std::endl;
+   else 
+     std::cout << "Le nombre de solutions optimales : " << nbSolPossible << std::endl;
    protein->calculeNeff();
    protein->translation();
    showProtein(*protein);
+  
 }
